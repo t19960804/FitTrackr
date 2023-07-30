@@ -34,9 +34,6 @@ class _CalendarPageState extends State<CalendarPage> {
   var _bottomNavigationIndex = 0;
   var _isEditMode = false;
 
-  DateTime _selectedDay = DateTime.now();
-  DateTime _focusedDay = DateTime.now();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,9 +48,7 @@ class _CalendarPageState extends State<CalendarPage> {
         leading: _isEditMode
             ? IconButton(
                 icon: const Icon(Icons.add),
-                onPressed: () {
-                  print('Add Training');
-                },
+                onPressed: () {},
               )
             : null,
         actions: [
@@ -62,10 +57,8 @@ class _CalendarPageState extends State<CalendarPage> {
             onPressed: () {
               setState(() {
                 if (_isEditMode == true) {
-                  print('Edit Mode Disable');
                   _isEditMode = false;
                 } else {
-                  print('Edit Mode Enable');
                   _isEditMode = true;
                 }
               });
@@ -102,7 +95,7 @@ class _CalendarPageState extends State<CalendarPage> {
       case 0:
         return Column(
           children: [
-            Calendar(),
+            const Calendar(),
             Expanded(
               child: ListView.builder(
                 // 在Column裡面使用ListView這種具有無限延展性的Widget，需要用Expanded包住

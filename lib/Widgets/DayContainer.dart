@@ -6,12 +6,12 @@ class DayContainer extends StatelessWidget {
   final Color backgroundColor;
   final FontWeight fontWeight;
 
-  DayContainer({
-    required this.dateTime,
-    required this.textColor,
-    required this.backgroundColor,
-    required this.fontWeight,
-  });
+  const DayContainer(
+      {required this.dateTime,
+      required this.textColor,
+      required this.backgroundColor,
+      required this.fontWeight,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
