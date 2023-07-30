@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: const ColorScheme.light(
-            primary: Color(0xFFFF9800), secondary: Color(0xFFF57C00)),
+            primary: Color(0xFFFF9800), secondary: Color(0xFFFFB74D)),
         useMaterial3: true,
       ),
       home: const CalendarPage(navTitle: 'FitTrackr'),
@@ -88,6 +88,85 @@ class _CalendarPageState extends State<CalendarPage> {
                 _focusedDay = focusedDay; // update `_focusedDay` here as well
               });
             },
+            calendarBuilders: CalendarBuilders(
+              outsideBuilder: (context, currentTime, previousTime) {
+                var displayString = "${currentTime.day}";
+                if (currentTime.day < 10) {
+                  displayString = "0${currentTime.day}";
+                }
+                return Center(
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(
+                      displayString,
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ),
+                );
+              },
+              defaultBuilder: (context, currentTime, previousTime) {
+                var displayString = "${currentTime.day}";
+                if (currentTime.day < 10) {
+                  displayString = "0${currentTime.day}";
+                }
+                return Center(
+                  child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(
+                      displayString,
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                );
+              },
+              todayBuilder: (context, currentTime, previousTime) {
+                var displayString = "${currentTime.day}";
+                if (currentTime.day < 10) {
+                  displayString = "0${currentTime.day}";
+                }
+                return Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.secondary,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(
+                      displayString,
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                );
+              },
+              selectedBuilder: (context, currentTime, previousTime) {
+                var displayString = "${currentTime.day}";
+                if (currentTime.day < 10) {
+                  displayString = "0${currentTime.day}";
+                }
+                return Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.primary,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: EdgeInsets.all(10.0),
+                    child: Text(
+                      displayString,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                );
+              },
+            ),
           ),
         );
       case 1:
