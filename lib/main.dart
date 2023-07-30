@@ -50,7 +50,7 @@ class _CalendarPageState extends State<CalendarPage> {
         ),
         leading: _isEditMode
             ? IconButton(
-                icon: Icon(Icons.add),
+                icon: const Icon(Icons.add),
                 onPressed: () {
                   print('Add Training');
                 },
@@ -100,8 +100,56 @@ class _CalendarPageState extends State<CalendarPage> {
   Widget _tabContent() {
     switch (_bottomNavigationIndex) {
       case 0:
-        return Center(
-          child: Calendar(),
+        return Column(
+          children: [
+            Calendar(),
+            Expanded(
+              child: ListView.builder(
+                // 在Column裡面使用ListView這種具有無限延展性的Widget，需要用Expanded包住
+                itemBuilder: (context, index) {
+                  return Container(
+                    margin: const EdgeInsets.all(10),
+                    height: 80,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Theme.of(context).colorScheme.primary,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.only(left: 12, right: 12),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Incline Bench Press",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            "2K",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                itemCount: 5,
+              ),
+            )
+          ],
         );
       case 1:
         return const Center(

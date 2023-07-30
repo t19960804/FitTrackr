@@ -20,7 +20,7 @@ class DayContainer extends StatelessWidget {
         color: backgroundColor,
         borderRadius: BorderRadius.circular(8),
       ),
-      padding: EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10.0),
       child: Text(
         dateTime.day < 10 ? "0${dateTime.day}" : "${dateTime.day}",
         style: TextStyle(
