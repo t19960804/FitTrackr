@@ -32,6 +32,8 @@ class CalendarPage extends StatefulWidget {
 
 class _CalendarPageState extends State<CalendarPage> {
   var _bottomNavigationIndex = 0;
+  var _isEditMode = false;
+
   DateTime _selectedDay = DateTime.now();
   DateTime _focusedDay = DateTime.now();
 
@@ -46,6 +48,30 @@ class _CalendarPageState extends State<CalendarPage> {
             fontWeight: FontWeight.bold,
           ),
         ),
+        leading: _isEditMode
+            ? IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () {
+                  print('Add Training');
+                },
+              )
+            : null,
+        actions: [
+          IconButton(
+            icon: Icon(_isEditMode ? Icons.done : Icons.edit),
+            onPressed: () {
+              setState(() {
+                if (_isEditMode == true) {
+                  print('Edit Mode Disable');
+                  _isEditMode = false;
+                } else {
+                  print('Edit Mode Enable');
+                  _isEditMode = true;
+                }
+              });
+            },
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) {
