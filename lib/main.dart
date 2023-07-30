@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:fit_trackr/Widgets/Calender.dart';
 
 void main() {
+  // const > 用來宣告編譯時就已經確定的值, 並且未來不再改變, 因此它只會被創建一次，未來需要時可以直接使用, 省下未來重新創建所需要的資源
+  // const不管是用來宣告屬性還是Widget本身, 都要確保"編譯時就已確定的值，而且這些值在未來不會改變"這項原則
   runApp(const MyApp());
 }
 
