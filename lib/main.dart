@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:fit_trackr/Widgets/Calender.dart';
 
 void main() {
   runApp(const MyApp());
@@ -75,99 +75,7 @@ class _CalendarPageState extends State<CalendarPage> {
     switch (_bottomNavigationIndex) {
       case 0:
         return Center(
-          child: TableCalendar(
-            firstDay: DateTime.utc(2010, 10, 16),
-            lastDay: DateTime.utc(2030, 3, 14),
-            focusedDay: DateTime.now(),
-            selectedDayPredicate: (day) {
-              return isSameDay(_selectedDay, day);
-            },
-            onDaySelected: (selectedDay, focusedDay) {
-              setState(() {
-                _selectedDay = selectedDay;
-                _focusedDay = focusedDay; // update `_focusedDay` here as well
-              });
-            },
-            calendarBuilders: CalendarBuilders(
-              outsideBuilder: (context, currentTime, previousTime) {
-                var displayString = "${currentTime.day}";
-                if (currentTime.day < 10) {
-                  displayString = "0${currentTime.day}";
-                }
-                return Center(
-                  child: Container(
-                    padding: EdgeInsets.all(10.0),
-                    child: Text(
-                      displayString,
-                      style: TextStyle(
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
-                );
-              },
-              defaultBuilder: (context, currentTime, previousTime) {
-                var displayString = "${currentTime.day}";
-                if (currentTime.day < 10) {
-                  displayString = "0${currentTime.day}";
-                }
-                return Center(
-                  child: Container(
-                    padding: EdgeInsets.all(10.0),
-                    child: Text(
-                      displayString,
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                );
-              },
-              todayBuilder: (context, currentTime, previousTime) {
-                var displayString = "${currentTime.day}";
-                if (currentTime.day < 10) {
-                  displayString = "0${currentTime.day}";
-                }
-                return Center(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.secondary,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    padding: EdgeInsets.all(10.0),
-                    child: Text(
-                      displayString,
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                );
-              },
-              selectedBuilder: (context, currentTime, previousTime) {
-                var displayString = "${currentTime.day}";
-                if (currentTime.day < 10) {
-                  displayString = "0${currentTime.day}";
-                }
-                return Center(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).colorScheme.primary,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    padding: EdgeInsets.all(10.0),
-                    child: Text(
-                      displayString,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
+          child: Calendar(),
         );
       case 1:
         return const Center(
