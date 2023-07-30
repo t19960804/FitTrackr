@@ -19,14 +19,14 @@ class MyApp extends StatelessWidget {
             primary: Color(0xFFFF9800), secondary: Color(0xFFFFB74D)),
         useMaterial3: true,
       ),
-      home: const CalendarPage(navTitle: 'FitTrackr'),
+      home: CalendarPage(navTitle: 'FitTrackr'),
     );
   }
 }
 
 class CalendarPage extends StatefulWidget {
   final String navTitle;
-  const CalendarPage({super.key, required this.navTitle});
+  CalendarPage({required this.navTitle});
 
   @override
   State<CalendarPage> createState() => _CalendarPageState();
@@ -97,7 +97,7 @@ class _CalendarPageState extends State<CalendarPage> {
       case 0:
         return Column(
           children: [
-            const Calendar(),
+            Calendar(),
             Expanded(
               child: ListView.builder(
                 // 在Column裡面使用ListView這種具有無限延展性的Widget，需要用Expanded包住

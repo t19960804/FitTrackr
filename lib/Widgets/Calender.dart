@@ -3,8 +3,6 @@ import 'package:table_calendar/table_calendar.dart';
 import 'DayContainer.dart';
 
 class Calendar extends StatefulWidget {
-  const Calendar({super.key});
-
   @override
   State<Calendar> createState() => _CalendarState();
 }
