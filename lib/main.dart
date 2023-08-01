@@ -20,20 +20,20 @@ class MyApp extends StatelessWidget {
             primary: Color(0xFFFF9800), secondary: Color(0xFFFFB74D)),
         useMaterial3: true,
       ),
-      home: CalendarPage(navTitle: 'FitTrackr'),
+      home: MainTabPage(navTitle: 'FitTrackr'),
     );
   }
 }
 
-class CalendarPage extends StatefulWidget {
+class MainTabPage extends StatefulWidget {
   final String navTitle;
-  CalendarPage({required this.navTitle});
+  MainTabPage({required this.navTitle});
 
   @override
-  State<CalendarPage> createState() => _CalendarPageState();
+  State<MainTabPage> createState() => _MainTabPageState();
 }
 
-class _CalendarPageState extends State<CalendarPage> {
+class _MainTabPageState extends State<MainTabPage> {
   var _bottomNavigationIndex = 0;
   var _isEditMode = false;
   var _training = ["Incline bench press", "Decline bench press"];
@@ -88,20 +88,20 @@ class _CalendarPageState extends State<CalendarPage> {
           ),
         ],
       ),
-      body: Center(
-        child: _tabContent(),
-      ),
+      body: _TabContent(),
     );
   }
 
-  Widget _tabContent() {
+  Widget _TabContent() {
     switch (_bottomNavigationIndex) {
       case 0:
-        return Column(
-          children: [
-            Calendar(),
-            TodayTrainingList(_training),
-          ],
+        return Center(
+          child: Column(
+            children: [
+              Calendar(),
+              TodayTrainingList(_training),
+            ],
+          ),
         );
       case 1:
         return const Center(
