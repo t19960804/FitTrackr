@@ -116,6 +116,11 @@ class _CalendarPageState extends State<CalendarPage> {
                       setState(() {
                         _selectStatus.fillRange(0, _selectStatus.length, false);
                         _selectStatus[index] = true;
+
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return Text("$training");
+                        }));
                       });
                     },
                     child: Container(
