@@ -1,35 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:fit_trackr/Models/Training.dart';
+import 'package:fit_trackr/Models/TrainingPart.dart';
 
 class TrainingsGrid extends StatefulWidget {
-  var trainings = [
-    Training(
+  var trainingParts = [
+    TrainingPart(
       "Chest",
       [
-        "Incline Bench Press",
-        "Decline Bench Press",
-        "Chest Fly",
-        "Flat Bench Press",
+        TrainingOption("Incline Bench Press", 0),
+        TrainingOption("Decline Bench Press", 0),
+        TrainingOption("Chest Fly", 0),
+        TrainingOption("Flat Bench Press", 0),
       ],
     ),
-    Training(
+    TrainingPart(
       "Leg",
       [
-        "Hack Squat",
-        "Leg Curl",
-        "Adductor",
-        "Leg Extension",
-        "RDL",
+        TrainingOption("Hack Squat", 0),
+        TrainingOption("Leg Curl", 0),
+        TrainingOption("Adductor", 0),
+        TrainingOption("Leg Extension", 0),
+        TrainingOption("RDL", 0),
       ],
     ),
-    Training(
+    TrainingPart(
       "Back",
       [
-        "Low Back",
-        "Wide Lat Pull Down",
-        "Narrow Lat Pull Down",
-        "Leg Extension",
-        "Straight arm row",
+        TrainingOption("Low Back", 0),
+        TrainingOption("Wide Lat Pull Down", 0),
+        TrainingOption("Narrow Lat Pull Down", 0),
+        TrainingOption("Flat Row", 0),
+        TrainingOption("Straight arm row", 0),
       ],
     ),
   ];
@@ -41,8 +41,9 @@ class TrainingsGrid extends StatefulWidget {
 
   void _resetSelectStatus() {
     selectStatus = List.generate(
-      trainings.length,
-      (index) => List.generate(trainings[index].options.length, (i) => false),
+      trainingParts.length,
+      (index) =>
+          List.generate(trainingParts[index].options.length, (i) => false),
     );
   }
 
@@ -55,23 +56,23 @@ class _TrainingsGridState extends State<TrainingsGrid> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
-        slivers: _HeaderAndCells(widget.trainings),
+        slivers: _HeaderAndCells(widget.trainingParts),
       ),
     );
   }
 
-  List<Widget> _HeaderAndCells(List<Training> trainings) {
+  List<Widget> _HeaderAndCells(List<TrainingPart> trainingParts) {
     List<Widget> widgets = [];
-    for (int i = 0; i < trainings.length; i++) {
-      final part = trainings[i].part;
-      final options = trainings[i].options;
+    for (int i = 0; i < trainingParts.length; i++) {
+      final part = trainingParts[i];
+      final options = trainingParts[i].options;
 
       final header = SliverAppBar(
         automaticallyImplyLeading: false,
         expandedHeight: 100, // 設置AppBar展開的高度
         flexibleSpace: FlexibleSpaceBar(
           title: Text(
-            part,
+            part.name,
             style: const TextStyle(
                 fontWeight: FontWeight.bold, fontSize: 24, color: Colors.grey),
           ),
@@ -119,7 +120,7 @@ class _TrainingsGridState extends State<TrainingsGrid> {
                       : [],
                 ),
                 child: Text(
-                  options[j],
+                  options[j].name,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 18,
