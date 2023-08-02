@@ -1,6 +1,7 @@
+import 'package:fit_trackr/Models/TrainingPart.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_trackr/Widgets/Calender.dart';
-import 'package:fit_trackr/Widgets/TodayTrainingList.dart';
+import 'package:fit_trackr/Widgets/TodayTrainingOptionsList.dart';
 import 'package:fit_trackr/Widgets/TrainingsGrid.dart';
 
 void main() {
@@ -37,7 +38,10 @@ class MainTabPage extends StatefulWidget {
 class _MainTabPageState extends State<MainTabPage> {
   var _bottomNavigationIndex = 0;
   var _isEditMode = false;
-  var _training = ["Incline bench press", "Decline bench press"];
+  var _trainingOptions = [
+    TrainingOption("Incline bench press", 50),
+    TrainingOption("Decline bench press", 50),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -117,7 +121,7 @@ class _MainTabPageState extends State<MainTabPage> {
           child: Column(
             children: [
               Calendar(),
-              TodayTrainingList(_training),
+              TodayTrainingOptionsList(_trainingOptions),
             ],
           ),
         );

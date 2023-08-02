@@ -1,26 +1,28 @@
+import 'package:fit_trackr/Models/TrainingPart.dart';
 import 'package:flutter/material.dart';
 
-class TodayTrainingList extends StatefulWidget {
-  var training = [];
+class TodayTrainingOptionsList extends StatefulWidget {
+  var trainingOptions = [];
   var selectStatus = [];
 
-  TodayTrainingList(List<String> training) {
-    this.training = training;
-    this.selectStatus = List.generate(training.length, (index) => false);
+  TodayTrainingOptionsList(List<TrainingOption> trainingOptions) {
+    this.trainingOptions = trainingOptions;
+    this.selectStatus = List.generate(trainingOptions.length, (index) => false);
   }
 
   @override
-  State<TodayTrainingList> createState() => _TodayTrainingListState();
+  State<TodayTrainingOptionsList> createState() =>
+      _TodayTrainingOptionsListState();
 }
 
-class _TodayTrainingListState extends State<TodayTrainingList> {
+class _TodayTrainingOptionsListState extends State<TodayTrainingOptionsList> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
         // 在Column裡面使用ListView這種具有無限延展性的Widget，需要用Expanded包住
         itemBuilder: (context, index) {
-          final training = widget.training[index];
+          final option = widget.trainingOptions[index];
           final isSelected = widget.selectStatus[index];
 
           return TextButton(
@@ -31,7 +33,7 @@ class _TodayTrainingListState extends State<TodayTrainingList> {
                 widget.selectStatus[index] = true;
 
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Text("$training");
+                  return Text("${option.name}");
                 }));
               });
             },
@@ -65,7 +67,7 @@ class _TodayTrainingListState extends State<TodayTrainingList> {
                 child: Row(
                   children: [
                     Text(
-                      training,
+                      option.name,
                       style: TextStyle(
                         fontWeight:
                             isSelected ? FontWeight.bold : FontWeight.normal,
@@ -75,7 +77,7 @@ class _TodayTrainingListState extends State<TodayTrainingList> {
                     ),
                     const Spacer(),
                     Text(
-                      "2K",
+                      "${option.volume}",
                       style: TextStyle(
                         fontWeight:
                             isSelected ? FontWeight.bold : FontWeight.normal,
@@ -89,7 +91,7 @@ class _TodayTrainingListState extends State<TodayTrainingList> {
             ),
           );
         },
-        itemCount: widget.training.length,
+        itemCount: widget.trainingOptions.length,
       ),
     );
   }
