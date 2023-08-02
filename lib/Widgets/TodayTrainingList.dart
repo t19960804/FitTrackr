@@ -43,7 +43,7 @@ class _TodayTrainingListState extends State<TodayTrainingList> {
                     ? null
                     : Border.all(
                         color: Colors.grey,
-                        width: 2.0,
+                        width: 3.0,
                       ),
                 borderRadius: BorderRadius.circular(10),
                 color: isSelected
