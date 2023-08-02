@@ -53,7 +53,22 @@ class _MainTabPageState extends State<MainTabPage> {
         leading: _isEditMode
             ? IconButton(
                 icon: const Icon(Icons.add),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return Scaffold(
+                      appBar: AppBar(
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        title: Text(
+                          widget.navTitle,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      body: TrainingsGrid(),
+                    );
+                  }));
+                },
               )
             : null,
         actions: [

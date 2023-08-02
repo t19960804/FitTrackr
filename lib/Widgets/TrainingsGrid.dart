@@ -67,6 +67,7 @@ class _TrainingsGridState extends State<TrainingsGrid> {
       final options = trainings[i].options;
 
       final header = SliverAppBar(
+        automaticallyImplyLeading: false,
         expandedHeight: 100, // 設置AppBar展開的高度
         flexibleSpace: FlexibleSpaceBar(
           title: Text(
