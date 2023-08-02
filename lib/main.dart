@@ -50,7 +50,7 @@ class _MainTabPageState extends State<MainTabPage> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        leading: _isEditMode
+        leading: (_isEditMode && _bottomNavigationIndex == 0)
             ? IconButton(
                 icon: const Icon(Icons.add),
                 onPressed: () {
@@ -71,20 +71,22 @@ class _MainTabPageState extends State<MainTabPage> {
                 },
               )
             : null,
-        actions: [
-          IconButton(
-            icon: Icon(_isEditMode ? Icons.done : Icons.edit),
-            onPressed: () {
-              setState(() {
-                if (_isEditMode == true) {
-                  _isEditMode = false;
-                } else {
-                  _isEditMode = true;
-                }
-              });
-            },
-          ),
-        ],
+        actions: _bottomNavigationIndex == 0
+            ? [
+                IconButton(
+                  icon: Icon(_isEditMode ? Icons.done : Icons.edit),
+                  onPressed: () {
+                    setState(() {
+                      if (_isEditMode == true) {
+                        _isEditMode = false;
+                      } else {
+                        _isEditMode = true;
+                      }
+                    });
+                  },
+                ),
+              ]
+            : [],
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) {
