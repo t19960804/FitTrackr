@@ -67,6 +67,7 @@ class _MainTabPageState extends State<MainTabPage> {
                         ),
                       ),
                       body: TrainingsGrid(
+                        willPop: true,
                         optionWasSelected: (option) {
                           setState(() {
                             _trainingOptions.add(option);
@@ -131,11 +132,8 @@ class _MainTabPageState extends State<MainTabPage> {
       case 1:
         return Center(
           child: TrainingsGrid(
-            optionWasSelected: (option) {
-              setState(() {
-                print(option.name);
-              });
-            },
+            willPop: false,
+            optionWasSelected: (option) {},
           ),
         );
       default:

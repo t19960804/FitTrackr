@@ -34,9 +34,13 @@ class TrainingsGrid extends StatefulWidget {
     ),
   ];
   var selectStatus = [];
+  bool willPop = false;
   void Function(TrainingOption)? optionWasSelected;
 
-  TrainingsGrid({required void Function(TrainingOption) optionWasSelected}) {
+  TrainingsGrid(
+      {required bool willPop,
+      required void Function(TrainingOption) optionWasSelected}) {
+    this.willPop = willPop;
     this.optionWasSelected = optionWasSelected;
     _resetSelectStatus();
   }
@@ -96,7 +100,9 @@ class _TrainingsGridState extends State<TrainingsGrid> {
                   widget.selectStatus[i][j] = true;
                 });
                 widget.optionWasSelected!(options[j]);
-                Navigator.pop(context);
+                if (widget.willPop) {
+                  Navigator.pop(context);
+                }
               },
               child: Container(
                 alignment: Alignment.center,
