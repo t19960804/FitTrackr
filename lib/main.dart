@@ -1,6 +1,8 @@
+import 'package:fit_trackr/Models/TrainingPart.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_trackr/Widgets/Calender.dart';
-import 'package:fit_trackr/Widgets/TodayTrainingList.dart';
+import 'package:fit_trackr/Widgets/TodayTrainingOptionsList.dart';
+import 'package:fit_trackr/Widgets/TrainingsGrid.dart';
 
 void main() {
   // const > 用來宣告編譯時就已經確定的值, 並且未來不再改變, 因此它只會被創建一次，未來需要時可以直接使用, 省下未來重新創建所需要的資源
@@ -36,7 +38,7 @@ class MainTabPage extends StatefulWidget {
 class _MainTabPageState extends State<MainTabPage> {
   var _bottomNavigationIndex = 0;
   var _isEditMode = false;
-  var _training = ["Incline bench press", "Decline bench press"];
+  List<TrainingOption> _trainingOptions = [];
 
   @override
   Widget build(BuildContext context) {
@@ -49,26 +51,50 @@ class _MainTabPageState extends State<MainTabPage> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        leading: _isEditMode
+        leading: (_isEditMode && _bottomNavigationIndex == 0)
             ? IconButton(
                 icon: const Icon(Icons.add),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return Scaffold(
+                      appBar: AppBar(
+                        backgroundColor: Theme.of(context).colorScheme.primary,
+                        title: Text(
+                          widget.navTitle,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      body: TrainingsGrid(
+                        willPop: true,
+                        optionWasSelected: (option) {
+                          setState(() {
+                            _trainingOptions.add(option);
+                          });
+                        },
+                      ),
+                    );
+                  }));
+                },
               )
             : null,
-        actions: [
-          IconButton(
-            icon: Icon(_isEditMode ? Icons.done : Icons.edit),
-            onPressed: () {
-              setState(() {
-                if (_isEditMode == true) {
-                  _isEditMode = false;
-                } else {
-                  _isEditMode = true;
-                }
-              });
-            },
-          ),
-        ],
+        actions: _bottomNavigationIndex == 0
+            ? [
+                IconButton(
+                  icon: Icon(_isEditMode ? Icons.done : Icons.edit),
+                  onPressed: () {
+                    setState(() {
+                      if (_isEditMode == true) {
+                        _isEditMode = false;
+                      } else {
+                        _isEditMode = true;
+                      }
+                    });
+                  },
+                ),
+              ]
+            : [],
       ),
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) {
@@ -99,13 +125,16 @@ class _MainTabPageState extends State<MainTabPage> {
           child: Column(
             children: [
               Calendar(),
-              TodayTrainingList(_training),
+              TodayTrainingOptionsList(_trainingOptions),
             ],
           ),
         );
       case 1:
-        return const Center(
-          child: Text('Training'),
+        return Center(
+          child: TrainingsGrid(
+            willPop: false,
+            optionWasSelected: (option) {},
+          ),
         );
       default:
         return Container();
