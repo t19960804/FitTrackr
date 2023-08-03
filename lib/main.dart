@@ -38,10 +38,7 @@ class MainTabPage extends StatefulWidget {
 class _MainTabPageState extends State<MainTabPage> {
   var _bottomNavigationIndex = 0;
   var _isEditMode = false;
-  var _trainingOptions = [
-    TrainingOption("Incline bench press", 50),
-    TrainingOption("Decline bench press", 50),
-  ];
+  List<TrainingOption> _trainingOptions = [];
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +66,13 @@ class _MainTabPageState extends State<MainTabPage> {
                           ),
                         ),
                       ),
-                      body: TrainingsGrid(),
+                      body: TrainingsGrid(
+                        optionWasSelected: (option) {
+                          setState(() {
+                            _trainingOptions.add(option);
+                          });
+                        },
+                      ),
                     );
                   }));
                 },
@@ -127,7 +130,13 @@ class _MainTabPageState extends State<MainTabPage> {
         );
       case 1:
         return Center(
-          child: TrainingsGrid(),
+          child: TrainingsGrid(
+            optionWasSelected: (option) {
+              setState(() {
+                print(option.name);
+              });
+            },
+          ),
         );
       default:
         return Container();

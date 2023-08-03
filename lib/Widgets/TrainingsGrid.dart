@@ -34,8 +34,10 @@ class TrainingsGrid extends StatefulWidget {
     ),
   ];
   var selectStatus = [];
+  void Function(TrainingOption)? optionWasSelected;
 
-  TrainingsGrid() {
+  TrainingsGrid({required void Function(TrainingOption) optionWasSelected}) {
+    this.optionWasSelected = optionWasSelected;
     _resetSelectStatus();
   }
 
@@ -92,8 +94,9 @@ class _TrainingsGridState extends State<TrainingsGrid> {
                 setState(() {
                   widget._resetSelectStatus();
                   widget.selectStatus[i][j] = true;
-                  print(options[j]);
                 });
+                widget.optionWasSelected!(options[j]);
+                Navigator.pop(context);
               },
               child: Container(
                 alignment: Alignment.center,
