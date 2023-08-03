@@ -102,6 +102,10 @@ class _TrainingsGridState extends State<TrainingsGrid> {
                 widget.optionWasSelected!(options[j]);
                 if (widget.willPop) {
                   Navigator.pop(context);
+                } else {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return Text("${options[j].name}");
+                  }));
                 }
               },
               child: Container(
