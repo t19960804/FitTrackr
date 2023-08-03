@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fit_trackr/Widgets/Calender.dart';
 import 'package:fit_trackr/Widgets/TodayTrainingOptionsList.dart';
 import 'package:fit_trackr/Widgets/TrainingsGrid.dart';
+import 'SQLiteDB.dart';
 
 void main() {
   // const > 用來宣告編譯時就已經確定的值, 並且未來不再改變, 因此它只會被創建一次，未來需要時可以直接使用, 省下未來重新創建所需要的資源
@@ -133,7 +134,21 @@ class _MainTabPageState extends State<MainTabPage> {
         return Center(
           child: TrainingsGrid(
             willPop: false,
-            optionWasSelected: (option) {},
+            optionWasSelected: (option) async {
+              // final person = Person(id: 1, name: 'John Doe', age: 30);
+              //
+              // // 插入資料
+              // await DatabaseHelper.insertPerson(person);
+
+              // 讀取資料
+              final persons = await DatabaseHelper.fetchPersons();
+
+              // 輸出資料
+              persons.forEach((person) {
+                print(
+                    'ID: ${person.id}, Name: ${person.name}, Age: ${person.age}');
+              });
+            },
           ),
         );
       default:
