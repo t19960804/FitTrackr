@@ -24,12 +24,12 @@ class DatabaseHelper {
   Future<Database> _database() async {
     final dbPath = await getDatabasesPath();
     final path = join(dbPath, 'my_database.db');
-    // 把table想像成一個國家, table中的每一行資料想像成一個人民, primary key就是人民獨一無二的身分證
     return openDatabase(
       path,
       version: 1,
       onCreate: (db, version) {
         return db.execute(
+          // 把table想像成一個國家, table中的每一行資料想像成一個人民, primary key就是人民獨一無二的身分證
           'CREATE TABLE options($field_id INTEGER PRIMARY KEY, $field_name TEXT, $field_volume INTEGER, $field_dateTime TEXT)',
         );
       },
