@@ -4,6 +4,8 @@ import 'package:path/path.dart';
 
 class DatabaseHelper {
   static DatabaseHelper? _instance;
+  // 在class中宣告一個const屬性, 此時需要加上static
+  // 因為const用來宣告編譯時就確定的數值, 加上static後, 在編譯時IDE就能夠從類別直接存取到屬性並儲存
   static const tableName = "options";
   static const field_id = "id";
   static const field_name = "name";
