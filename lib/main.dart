@@ -135,18 +135,16 @@ class _MainTabPageState extends State<MainTabPage> {
           child: TrainingsGrid(
             willPop: false,
             optionWasSelected: (option) async {
-              // final person = Person(id: 1, name: 'John Doe', age: 30);
-              //
-              // // 插入資料
-              // await DatabaseHelper.insertPerson(person);
-
-              // 讀取資料
-              final persons = await DatabaseHelper.fetchPersons();
-
-              // 輸出資料
-              persons.forEach((person) {
+              final option = TrainingOption(
+                  name: "Decline Bench Press",
+                  volume: 100,
+                  dateTime: DateTime.now().toString());
+              DatabaseHelper.getSharedInstance().createTrainingOption(option);
+              final options = await DatabaseHelper.getSharedInstance()
+                  .readTrainingOptions();
+              options.forEach((option) {
                 print(
-                    'ID: ${person.id}, Name: ${person.name}, Age: ${person.age}');
+                    'id: ${option.id}, name: ${option.name}, volume: ${option.volume}, dateTime: ${option.dateTime}');
               });
             },
           ),
