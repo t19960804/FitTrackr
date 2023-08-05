@@ -9,7 +9,7 @@ class TrainingOption {
   int? id; // 主鍵，可以為null，SQLite會自動生成唯一且遞增的id, id不需要在toMap中放入，SQLite會自動生成
   final String name;
   int? volume;
-  final String? dateTime;
+  String? dateTime;
 
   TrainingOption({this.id, required this.name, this.volume, this.dateTime});
 

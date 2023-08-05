@@ -41,6 +41,20 @@ class _MainTabPageState extends State<MainTabPage> {
   var _isEditMode = false;
   List<TrainingOption> _trainingOptions = [];
 
+  _MainTabPageState() {
+    updateTrainingOptions(dateTime: DateTime.now());
+  }
+
+  void updateTrainingOptions({required DateTime dateTime}) async {
+    final options = await DatabaseHelper.getSharedInstance()
+        .readTrainingOptions(
+            predicate:
+                "dateTime = ${dateTime.year}${dateTime.month}${dateTime.day}");
+    setState(() {
+      _trainingOptions = options;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,10 +83,12 @@ class _MainTabPageState extends State<MainTabPage> {
                       ),
                       body: TrainingsGrid(
                         willPop: true,
-                        optionWasSelected: (option) {
-                          setState(() {
-                            _trainingOptions.add(option);
-                          });
+                        optionWasSelected: (option) async {
+                          option.dateTime =
+                              "${DateTime.now().year}${DateTime.now().month}${DateTime.now().day}";
+                          DatabaseHelper.getSharedInstance()
+                              .createTrainingOption(option);
+                          updateTrainingOptions(dateTime: DateTime.now());
                         },
                       ),
                     );
@@ -125,7 +141,11 @@ class _MainTabPageState extends State<MainTabPage> {
         return Center(
           child: Column(
             children: [
-              Calendar(),
+              Calendar(
+                onDaySelected: (dateTime) {
+                  updateTrainingOptions(dateTime: dateTime);
+                },
+              ),
               TodayTrainingOptionsList(_trainingOptions),
             ],
           ),
@@ -134,19 +154,7 @@ class _MainTabPageState extends State<MainTabPage> {
         return Center(
           child: TrainingsGrid(
             willPop: false,
-            optionWasSelected: (option) async {
-              final option = TrainingOption(
-                  name: "Decline Bench Press",
-                  volume: 100,
-                  dateTime: DateTime.now().toString());
-              DatabaseHelper.getSharedInstance().createTrainingOption(option);
-              final options = await DatabaseHelper.getSharedInstance()
-                  .readTrainingOptions();
-              options.forEach((option) {
-                print(
-                    'id: ${option.id}, name: ${option.name}, volume: ${option.volume}, dateTime: ${option.dateTime}');
-              });
-            },
+            optionWasSelected: (option) async {},
           ),
         );
       default:

@@ -3,6 +3,9 @@ import 'package:table_calendar/table_calendar.dart';
 import 'DayContainer.dart';
 
 class Calendar extends StatefulWidget {
+  void Function(DateTime) onDaySelected;
+  Calendar({required this.onDaySelected});
+
   @override
   State<Calendar> createState() => _CalendarState();
 }
@@ -23,6 +26,7 @@ class _CalendarState extends State<Calendar> {
         setState(() {
           _selectedDay = selectedDay;
         });
+        widget.onDaySelected(_selectedDay);
       },
       calendarBuilders: CalendarBuilders(
         outsideBuilder: (context, currentTime, previousTime) {
