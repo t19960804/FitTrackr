@@ -51,9 +51,6 @@ class _MainTabPageState extends State<MainTabPage> {
         .readTrainingOptions(
             predicate:
                 "dateTime = ${dateTime.year}${dateTime.month}${dateTime.day}");
-    options.forEach((element) {
-      print(element.dateTime);
-    });
     setState(() {
       _trainingOptions = options;
     });
