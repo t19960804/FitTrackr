@@ -11,6 +11,7 @@ class _AddSetsAndRepsPopViewState extends State<AddSetsAndRepsPopView> {
     const mainColor = Colors.black;
 
     return Container(
+      height: 350,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -22,29 +23,96 @@ class _AddSetsAndRepsPopViewState extends State<AddSetsAndRepsPopView> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              "Add Task",
+              "Add Sets",
               style: TextStyle(
                   color: mainColor, fontSize: 30, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
-            TextField(
-              decoration: InputDecoration(
-                labelStyle: TextStyle(color: Colors.blue), // 文字標籤的顏色
-                enabledBorder: UnderlineInputBorder(
-                  borderSide:
-                      BorderSide(color: mainColor, width: 4.0), // 非聚焦時的下劃線顏色和粗度
+            Spacer(),
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    children: [
+                      Text(
+                        "Reps",
+                        style: TextStyle(
+                            color: mainColor,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      TextField(
+                        style: TextStyle(
+                          // 控制字体样式
+                          fontSize: 25, // 字体大小
+                          color: Colors.black, // 字体颜色
+                          fontWeight: FontWeight.bold, // 字体粗细
+                        ),
+                        keyboardType: TextInputType.number,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          labelStyle: TextStyle(color: Colors.blue), // 文字標籤的顏色
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: mainColor, width: 4.0), // 非聚焦時的下劃線顏色和粗度
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: mainColor, width: 4.0), // 聚焦時的下劃線顏色和粗度
+                          ),
+                        ),
+                        onChanged: (value) {},
+                      ),
+                    ],
+                  ),
                 ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide:
-                      BorderSide(color: mainColor, width: 4.0), // 聚焦時的下劃線顏色和粗度
+                SizedBox(width: 70),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Text(
+                        "KG",
+                        style: TextStyle(
+                            color: mainColor,
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      TextField(
+                        style: TextStyle(
+                          // 控制字体样式
+                          fontSize: 25, // 字体大小
+                          color: Colors.black, // 字体颜色
+                          fontWeight: FontWeight.bold, // 字体粗细
+                        ),
+                        keyboardType: TextInputType.number,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          labelStyle: TextStyle(color: Colors.blue), // 文字標籤的顏色
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: mainColor, width: 4.0), // 非聚焦時的下劃線顏色和粗度
+                          ),
+                          focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                                color: mainColor, width: 4.0), // 聚焦時的下劃線顏色和粗度
+                          ),
+                        ),
+                        onChanged: (value) {},
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              onChanged: (value) {},
+              ],
             ),
             SizedBox(height: 30),
             Container(
+              decoration: BoxDecoration(
+                color: mainColor,
+                borderRadius: BorderRadius.all(Radius.circular(10)),
+              ),
               height: 65,
-              color: mainColor,
               child: TextButton(
                 onPressed: () {
                   // final task = Task(_taskTitle, done: false);
@@ -54,10 +122,11 @@ class _AddSetsAndRepsPopViewState extends State<AddSetsAndRepsPopView> {
                   // Navigator.pop(context); // Dismiss bottom sheet
                 },
                 child: Text(
-                  "Add",
+                  "Finish",
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.white,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
