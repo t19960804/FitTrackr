@@ -1,3 +1,4 @@
+import 'package:fit_trackr/Models/TrainingSet.dart';
 import 'package:fit_trackr/Widgets/AddSetsAndReps/AddSetsAndRepsPopView.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,7 @@ class SetsAndRepsList extends StatefulWidget {
 }
 
 class _SetsAndRepsListState extends State<SetsAndRepsList> {
+  List<TrainingSet> _trainingSets = [];
   var _isEditMode = false;
 
   @override
@@ -40,7 +42,13 @@ class _SetsAndRepsListState extends State<SetsAndRepsList> {
                             decoration: const BoxDecoration(
                               color: Color(0xff757575),
                             ),
-                            child: AddSetsAndRepsPopView(),
+                            child: AddSetsAndRepsPopView(
+                              trainingSetWasAdded: (set) {
+                                setState(() {
+                                  _trainingSets.add(set);
+                                });
+                              },
+                            ),
                           ),
                         );
                       },
@@ -62,6 +70,52 @@ class _SetsAndRepsListState extends State<SetsAndRepsList> {
               },
             ),
           ]),
+      body: ListView.builder(
+        itemBuilder: (context, index) {
+          final trainingSet = _trainingSets[index];
+          return TextButton(
+            onPressed: () {},
+            child: Container(
+              margin: const EdgeInsets.all(10),
+              height: 80,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.grey,
+                  width: 3.0,
+                ),
+                borderRadius: BorderRadius.circular(10),
+                color: Colors.transparent,
+                boxShadow: [],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 12, right: 12),
+                child: Row(
+                  children: [
+                    Text(
+                      "${trainingSet.kg}",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 24,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      "${trainingSet.reps}",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 24,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+        itemCount: _trainingSets.length,
+      ),
     );
   }
 }

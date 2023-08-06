@@ -4,9 +4,10 @@ import 'FinishButton.dart';
 import 'package:fit_trackr/Models/TrainingSet.dart';
 
 class AddSetsAndRepsPopView extends StatelessWidget {
+  final void Function(TrainingSet) trainingSetWasAdded;
   var _reps = 0;
   var _kg = 0;
-  AddSetsAndRepsPopView({super.key});
+  AddSetsAndRepsPopView({super.key, required this.trainingSetWasAdded});
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +79,7 @@ class AddSetsAndRepsPopView extends StatelessWidget {
             FinishButton(
               onPressed: () {
                 final set = TrainingSet(reps: _reps, kg: _kg);
-                print("volume > ${set.reps * set.kg}");
+                trainingSetWasAdded(set);
               },
             ),
           ],
