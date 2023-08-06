@@ -37,12 +37,13 @@ class MainTabPage extends StatefulWidget {
 }
 
 class _MainTabPageState extends State<MainTabPage> {
+  DateTime _selectedDay = DateTime.now();
   var _bottomNavigationIndex = 0;
   var _isEditMode = false;
   List<TrainingOption> _trainingOptions = [];
 
   _MainTabPageState() {
-    updateTrainingOptions(dateTime: DateTime.now());
+    updateTrainingOptions(dateTime: _selectedDay);
   }
 
   void updateTrainingOptions({required DateTime dateTime}) async {
@@ -50,6 +51,9 @@ class _MainTabPageState extends State<MainTabPage> {
         .readTrainingOptions(
             predicate:
                 "dateTime = ${dateTime.year}${dateTime.month}${dateTime.day}");
+    options.forEach((element) {
+      print(element.dateTime);
+    });
     setState(() {
       _trainingOptions = options;
     });
@@ -85,10 +89,10 @@ class _MainTabPageState extends State<MainTabPage> {
                         willPop: true,
                         optionWasSelected: (option) async {
                           option.dateTime =
-                              "${DateTime.now().year}${DateTime.now().month}${DateTime.now().day}";
+                              "${_selectedDay.year}${_selectedDay.month}${_selectedDay.day}";
                           DatabaseHelper.getSharedInstance()
                               .createTrainingOption(option);
-                          updateTrainingOptions(dateTime: DateTime.now());
+                          updateTrainingOptions(dateTime: _selectedDay);
                         },
                       ),
                     );
@@ -143,7 +147,8 @@ class _MainTabPageState extends State<MainTabPage> {
             children: [
               Calendar(
                 onDaySelected: (dateTime) {
-                  updateTrainingOptions(dateTime: dateTime);
+                  _selectedDay = dateTime;
+                  updateTrainingOptions(dateTime: _selectedDay);
                 },
               ),
               TodayTrainingOptionsList(_trainingOptions),
