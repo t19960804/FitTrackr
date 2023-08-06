@@ -1,4 +1,4 @@
-import 'package:fit_trackr/Widgets/AddSetsAndRepsPopView.dart';
+import 'package:fit_trackr/Widgets/AddSetsAndReps/AddSetsAndRepsPopView.dart';
 import 'package:flutter/material.dart';
 
 class SetsAndRepsList extends StatefulWidget {
@@ -37,10 +37,10 @@ class _SetsAndRepsListState extends State<SetsAndRepsList> {
                                 bottom: MediaQuery.of(context)
                                     .viewInsets
                                     .bottom), // 用MediaQuery去讀取裝置的數據
-                            child: AddSetsAndRepsPopView(),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Color(0xff757575),
                             ),
+                            child: const AddSetsAndRepsPopView(),
                           ),
                         );
                       },

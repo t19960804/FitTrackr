@@ -1,6 +1,6 @@
 import 'package:fit_trackr/Models/TrainingPart.dart';
 import 'package:flutter/material.dart';
-import 'SetsAndRepsList.dart';
+import 'AddSetsAndReps/SetsAndRepsList.dart';
 
 class TodayTrainingOptionsList extends StatefulWidget {
   var trainingOptions = [];

@@ -1,6 +1,6 @@
 import 'package:fit_trackr/Models/TrainingPart.dart';
 import 'package:flutter/material.dart';
-import 'package:fit_trackr/Widgets/Calender.dart';
+import 'package:fit_trackr/Widgets/CalenderTab/Calender.dart';
 import 'package:fit_trackr/Widgets/TodayTrainingOptionsList.dart';
 import 'package:fit_trackr/Widgets/TrainingsGrid.dart';
 import 'SQLiteDB.dart';
