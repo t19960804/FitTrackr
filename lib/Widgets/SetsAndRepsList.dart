@@ -1,3 +1,4 @@
+import 'package:fit_trackr/Widgets/AddSetsAndRepsPopView.dart';
 import 'package:flutter/material.dart';
 
 class SetsAndRepsList extends StatefulWidget {
@@ -25,7 +26,26 @@ class _SetsAndRepsListState extends State<SetsAndRepsList> {
           leading: _isEditMode
               ? IconButton(
                   icon: const Icon(Icons.add),
-                  onPressed: () {},
+                  onPressed: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (context) {
+                        return SingleChildScrollView(
+                          child: Container(
+                            padding: EdgeInsets.only(
+                                bottom: MediaQuery.of(context)
+                                    .viewInsets
+                                    .bottom), // 用MediaQuery去讀取裝置的數據
+                            child: AddSetsAndRepsPopView(),
+                            decoration: BoxDecoration(
+                              color: Color(0xff757575),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
                 )
               : null,
           actions: [
