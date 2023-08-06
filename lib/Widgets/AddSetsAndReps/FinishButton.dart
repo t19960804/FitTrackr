@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class FinishButton extends StatelessWidget {
-  const FinishButton({super.key});
+  final void Function() onPressed;
+  const FinishButton({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -13,11 +14,8 @@ class FinishButton extends StatelessWidget {
       height: 65,
       child: TextButton(
         onPressed: () {
-          // final task = Task(_taskTitle, done: false);
-          // final tasksManager =
-          // Provider.of<TasksManager>(context, listen: false);
-          // tasksManager.addTask(task);
-          // Navigator.pop(context); // Dismiss bottom sheet
+          onPressed();
+          Navigator.pop(context);
         },
         child: const Text(
           "Finish",

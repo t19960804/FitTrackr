@@ -40,7 +40,7 @@ class _SetsAndRepsListState extends State<SetsAndRepsList> {
                             decoration: const BoxDecoration(
                               color: Color(0xff757575),
                             ),
-                            child: const AddSetsAndRepsPopView(),
+                            child: AddSetsAndRepsPopView(),
                           ),
                         );
                       },

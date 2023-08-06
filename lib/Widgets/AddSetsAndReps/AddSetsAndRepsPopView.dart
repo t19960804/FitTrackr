@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'SetsAndRepsTextField.dart';
 import 'FinishButton.dart';
+import 'package:fit_trackr/Models/TrainingSet.dart';
 
 class AddSetsAndRepsPopView extends StatelessWidget {
-  const AddSetsAndRepsPopView({super.key});
+  var _reps = 0;
+  var _kg = 0;
+  AddSetsAndRepsPopView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,24 +19,24 @@ class AddSetsAndRepsPopView extends StatelessWidget {
         borderRadius: BorderRadius.only(
             topLeft: Radius.circular(10), topRight: Radius.circular(10)),
       ),
-      child: const Padding(
-        padding: EdgeInsets.all(30),
+      child: Padding(
+        padding: const EdgeInsets.all(30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
+            const Text(
               "Add Sets",
               style: TextStyle(
                   color: mainColor, fontSize: 30, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
-            Spacer(),
+            const Spacer(),
             Row(
               children: [
                 Expanded(
                   child: Column(
                     children: [
-                      Text(
+                      const Text(
                         "Reps",
                         style: TextStyle(
                             color: mainColor,
@@ -41,15 +44,19 @@ class AddSetsAndRepsPopView extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
-                      SetsAndRepsTextField(),
+                      SetsAndRepsTextField(
+                        onChanged: (value) {
+                          _reps = int.parse(value);
+                        },
+                      ),
                     ],
                   ),
                 ),
-                SizedBox(width: 70),
+                const SizedBox(width: 70),
                 Expanded(
                   child: Column(
                     children: [
-                      Text(
+                      const Text(
                         "KG",
                         style: TextStyle(
                             color: mainColor,
@@ -57,14 +64,23 @@ class AddSetsAndRepsPopView extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
-                      SetsAndRepsTextField(),
+                      SetsAndRepsTextField(
+                        onChanged: (value) {
+                          _kg = int.parse(value);
+                        },
+                      ),
                     ],
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 30),
-            FinishButton(),
+            const SizedBox(height: 30),
+            FinishButton(
+              onPressed: () {
+                final set = TrainingSet(reps: _reps, kg: _kg);
+                print("volume > ${set.reps * set.kg}");
+              },
+            ),
           ],
         ),
       ),

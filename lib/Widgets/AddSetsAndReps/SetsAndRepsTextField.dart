@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SetsAndRepsTextField extends StatelessWidget {
-  const SetsAndRepsTextField({super.key});
+  final void Function(String) onChanged;
+
+  const SetsAndRepsTextField({super.key, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +26,7 @@ class SetsAndRepsTextField extends StatelessWidget {
               BorderSide(color: Colors.black, width: 4.0), // 聚焦時的下劃線顏色和粗度
         ),
       ),
-      onChanged: (value) {},
+      onChanged: onChanged,
     );
   }
 }
