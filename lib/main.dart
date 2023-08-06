@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fit_trackr/Widgets/Calender.dart';
 import 'package:fit_trackr/Widgets/TodayTrainingOptionsList.dart';
 import 'package:fit_trackr/Widgets/TrainingsGrid.dart';
+import 'SQLiteDB.dart';
 
 void main() {
   // const > 用來宣告編譯時就已經確定的值, 並且未來不再改變, 因此它只會被創建一次，未來需要時可以直接使用, 省下未來重新創建所需要的資源
@@ -36,9 +37,27 @@ class MainTabPage extends StatefulWidget {
 }
 
 class _MainTabPageState extends State<MainTabPage> {
+  DateTime _selectedDay = DateTime.now();
   var _bottomNavigationIndex = 0;
   var _isEditMode = false;
   List<TrainingOption> _trainingOptions = [];
+
+  _MainTabPageState() {
+    updateTrainingOptions(dateTime: _selectedDay);
+  }
+
+  void updateTrainingOptions({required DateTime dateTime}) async {
+    final options = await DatabaseHelper.getSharedInstance()
+        .readTrainingOptions(
+            predicate:
+                "dateTime = ${dateTime.year}${dateTime.month}${dateTime.day}");
+    options.forEach((element) {
+      print(element.dateTime);
+    });
+    setState(() {
+      _trainingOptions = options;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,10 +87,12 @@ class _MainTabPageState extends State<MainTabPage> {
                       ),
                       body: TrainingsGrid(
                         willPop: true,
-                        optionWasSelected: (option) {
-                          setState(() {
-                            _trainingOptions.add(option);
-                          });
+                        optionWasSelected: (option) async {
+                          option.dateTime =
+                              "${_selectedDay.year}${_selectedDay.month}${_selectedDay.day}";
+                          DatabaseHelper.getSharedInstance()
+                              .createTrainingOption(option);
+                          updateTrainingOptions(dateTime: _selectedDay);
                         },
                       ),
                     );
@@ -124,7 +145,12 @@ class _MainTabPageState extends State<MainTabPage> {
         return Center(
           child: Column(
             children: [
-              Calendar(),
+              Calendar(
+                onDaySelected: (dateTime) {
+                  _selectedDay = dateTime;
+                  updateTrainingOptions(dateTime: _selectedDay);
+                },
+              ),
               TodayTrainingOptionsList(_trainingOptions),
             ],
           ),
@@ -133,7 +159,7 @@ class _MainTabPageState extends State<MainTabPage> {
         return Center(
           child: TrainingsGrid(
             willPop: false,
-            optionWasSelected: (option) {},
+            optionWasSelected: (option) async {},
           ),
         );
       default:
