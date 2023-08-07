@@ -90,7 +90,7 @@ class _SetsAndRepsListState extends State<SetsAndRepsList> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "1st",
+                    _toOrdinal(index + 1),
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 24,
@@ -146,5 +146,24 @@ class _SetsAndRepsListState extends State<SetsAndRepsList> {
         itemCount: _trainingSets.length,
       ),
     );
+  }
+
+  String _toOrdinal(int number) {
+    if (number == 0) return "0";
+
+    if (number % 100 == 11 || number % 100 == 12 || number % 100 == 13) {
+      return '${number}th';
+    }
+
+    switch (number % 10) {
+      case 1:
+        return '${number}st';
+      case 2:
+        return '${number}nd';
+      case 3:
+        return '${number}rd';
+      default:
+        return '${number}th';
+    }
   }
 }
