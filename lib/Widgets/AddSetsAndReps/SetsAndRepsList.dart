@@ -73,44 +73,73 @@ class _SetsAndRepsListState extends State<SetsAndRepsList> {
       body: ListView.builder(
         itemBuilder: (context, index) {
           final trainingSet = _trainingSets[index];
-          return TextButton(
-            onPressed: () {},
-            child: Container(
-              margin: const EdgeInsets.all(10),
-              height: 80,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.grey,
-                  width: 3.0,
-                ),
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.transparent,
-                boxShadow: [],
+          return Container(
+            margin: const EdgeInsets.all(10),
+            height: 120,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.grey,
+                width: 3.0,
               ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 12, right: 12),
-                child: Row(
-                  children: [
-                    Text(
-                      "${trainingSet.kg}",
-                      style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 24,
-                        color: Colors.grey,
-                      ),
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.transparent,
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    "1st",
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
+                      color: Colors.grey,
                     ),
-                    const Spacer(),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
                     Text(
                       "${trainingSet.reps}",
                       style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 28,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Text(
+                      "reps",
+                      style: TextStyle(
                         fontWeight: FontWeight.normal,
-                        fontSize: 24,
+                        fontSize: 18,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Container(
+                      width: 40,
+                    ),
+                    Text(
+                      "${trainingSet.kg}",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 28,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Text(
+                      "kg",
+                      style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 18,
                         color: Colors.grey,
                       ),
                     ),
                   ],
                 ),
-              ),
+              ],
             ),
           );
         },
