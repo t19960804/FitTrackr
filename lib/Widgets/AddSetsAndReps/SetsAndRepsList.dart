@@ -1,17 +1,22 @@
+import 'package:fit_trackr/Models/TrainingPart.dart';
 import 'package:fit_trackr/Models/TrainingSet.dart';
 import 'package:fit_trackr/Widgets/AddSetsAndReps/AddSetsAndRepsPopView.dart';
 import 'package:flutter/material.dart';
+import 'package:fit_trackr/SQLiteDB.dart';
 
 class SetsAndRepsList extends StatefulWidget {
-  final String navTitle;
-  SetsAndRepsList({required this.navTitle});
+  final TrainingOption option;
+  List<TrainingSet> _trainingSets = [];
+
+  SetsAndRepsList({required this.option}) {
+    _trainingSets = option.sets ?? [];
+  }
 
   @override
   State<SetsAndRepsList> createState() => _SetsAndRepsListState();
 }
 
 class _SetsAndRepsListState extends State<SetsAndRepsList> {
-  List<TrainingSet> _trainingSets = [];
   var _isEditMode = false;
 
   @override
@@ -20,7 +25,7 @@ class _SetsAndRepsListState extends State<SetsAndRepsList> {
       appBar: AppBar(
           backgroundColor: Theme.of(context).colorScheme.primary,
           title: Text(
-            widget.navTitle,
+            widget.option.name,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
@@ -43,10 +48,13 @@ class _SetsAndRepsListState extends State<SetsAndRepsList> {
                               color: Color(0xff757575),
                             ),
                             child: AddSetsAndRepsPopView(
-                              trainingSetWasAdded: (set) {
+                              trainingSetWasAdded: (set) async {
                                 setState(() {
-                                  _trainingSets.add(set);
+                                  widget._trainingSets.add(set);
                                 });
+                                widget.option.sets = widget._trainingSets;
+                                DatabaseHelper.getSharedInstance()
+                                    .updateTrainingOption(widget.option);
                               },
                             ),
                           ),
@@ -72,7 +80,7 @@ class _SetsAndRepsListState extends State<SetsAndRepsList> {
           ]),
       body: ListView.builder(
         itemBuilder: (context, index) {
-          final trainingSet = _trainingSets[index];
+          final trainingSet = widget._trainingSets[index];
           return Container(
             margin: const EdgeInsets.all(10),
             height: 120,
@@ -143,7 +151,7 @@ class _SetsAndRepsListState extends State<SetsAndRepsList> {
             ),
           );
         },
-        itemCount: _trainingSets.length,
+        itemCount: widget._trainingSets.length,
       ),
     );
   }

@@ -34,7 +34,7 @@ class _TodayTrainingOptionsListState extends State<TodayTrainingOptionsList> {
                 widget.selectStatus[index] = true;
 
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return SetsAndRepsList(navTitle: option.name);
+                  return SetsAndRepsList(option: option);
                 }));
               });
             },

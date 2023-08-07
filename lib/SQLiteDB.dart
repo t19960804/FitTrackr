@@ -1,6 +1,8 @@
 import 'package:fit_trackr/Models/TrainingPart.dart';
+import 'package:fit_trackr/Models/TrainingSet.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'dart:convert';
 
 class DatabaseHelper {
   static DatabaseHelper? _instance;
@@ -11,6 +13,7 @@ class DatabaseHelper {
   static const field_name = "name";
   static const field_volume = "volume";
   static const field_dateTime = "dateTime";
+  static const field_sets = "sets";
 
   DatabaseHelper._();
 
@@ -30,7 +33,8 @@ class DatabaseHelper {
       onCreate: (db, version) {
         return db.execute(
           // 把table想像成一個國家, table中的每一行資料想像成一個人民, primary key就是人民獨一無二的身分證
-          'CREATE TABLE options($field_id INTEGER PRIMARY KEY, $field_name TEXT, $field_volume INTEGER, $field_dateTime TEXT)',
+          // SQLite 只有四種基本資料類型：INTEGER、REAL、TEXT 和BLOB, 如果要儲存陣列, 需要轉字串
+          'CREATE TABLE options($field_id INTEGER PRIMARY KEY, $field_name TEXT, $field_volume INTEGER, $field_dateTime TEXT, $field_sets TEXT)',
         );
       },
     );
@@ -50,12 +54,20 @@ class DatabaseHelper {
     final maps = await db.query(tableName, where: predicate);
     return List.generate(maps.length, (i) {
       return TrainingOption(
-        id: maps[i][field_id] as int,
-        name: maps[i][field_name] as String,
-        volume: maps[i][field_volume] as int?,
-        dateTime: maps[i][field_dateTime] as String?,
-      );
+          id: maps[i][field_id] as int,
+          name: maps[i][field_name] as String,
+          volume: maps[i][field_volume] as int?,
+          dateTime: maps[i][field_dateTime] as String?,
+          sets: _parseSets(maps[i]['sets']));
     });
+  }
+
+  static List<TrainingSet>? _parseSets(dynamic sets) {
+    final List<dynamic>? parsedSets = jsonDecode(sets);
+    return parsedSets
+        ?.map(
+            (setMap) => TrainingSet.fromMap(Map<String, dynamic>.from(setMap)))
+        .toList();
   }
 
   void updateTrainingOption(TrainingOption option) async {
