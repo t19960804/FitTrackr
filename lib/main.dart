@@ -5,6 +5,11 @@ import 'package:fit_trackr/Widgets/CalenderTab/TodayTrainingOptionsList.dart';
 import 'package:fit_trackr/Widgets/TrainingsGrid.dart';
 import 'DatabaseHelper.dart';
 
+enum MainTabType {
+  calender,
+  training,
+}
+
 void main() {
   // const > 用來宣告編譯時就已經確定的值, 並且未來不再改變, 因此它只會被創建一次，未來需要時可以直接使用, 省下未來重新創建所需要的資源
   // const不管是用來宣告屬性還是Widget本身, 都要確保"編譯時就已確定的值，而且這些值在未來不會改變"這項原則
@@ -83,7 +88,7 @@ class _MainTabPageState extends State<MainTabPage> {
                         ),
                       ),
                       body: TrainingsGrid(
-                        willPop: true,
+                        type: MainTabType.calender,
                         optionWasSelected: (option) async {
                           option.dateTime =
                               "${_selectedDay.year}${_selectedDay.month}${_selectedDay.day}";
@@ -155,7 +160,7 @@ class _MainTabPageState extends State<MainTabPage> {
       case 1:
         return Center(
           child: TrainingsGrid(
-            willPop: false,
+            type: MainTabType.training,
             optionWasSelected: (option) async {},
           ),
         );

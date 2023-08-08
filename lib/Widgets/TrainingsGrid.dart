@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fit_trackr/Models/TrainingPart.dart';
 import 'package:fit_trackr/Models/TrainingOption.dart';
+import 'package:fit_trackr/main.dart';
+import 'package:fit_trackr/Widgets/VolumeGraph/VolumeGraphPage.dart';
 
 class TrainingsGrid extends StatefulWidget {
   var trainingParts = [
@@ -35,13 +37,13 @@ class TrainingsGrid extends StatefulWidget {
     ),
   ];
   var selectStatus = [];
-  bool willPop = false;
+  var type = MainTabType.calender;
   void Function(TrainingOption)? optionWasSelected;
 
   TrainingsGrid(
-      {required bool willPop,
+      {required MainTabType type,
       required void Function(TrainingOption) optionWasSelected}) {
-    this.willPop = willPop;
+    this.type = type;
     this.optionWasSelected = optionWasSelected;
     _resetSelectStatus();
   }
@@ -101,11 +103,13 @@ class _TrainingsGridState extends State<TrainingsGrid> {
                   widget.selectStatus[i][j] = true;
                 });
                 widget.optionWasSelected!(options[j]);
-                if (widget.willPop) {
+                if (widget.type == MainTabType.calender) {
                   Navigator.pop(context);
                 } else {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Text("${options[j].name}");
+                    return VolumeGraphPage(
+                      option: options[j],
+                    );
                   }));
                 }
               },
