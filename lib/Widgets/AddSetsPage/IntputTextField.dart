@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class SetsAndRepsTextField extends StatelessWidget {
+class IntputTextField extends StatelessWidget {
   final void Function(String) onChanged;
 
-  const SetsAndRepsTextField({super.key, required this.onChanged});
+  const IntputTextField({super.key, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {

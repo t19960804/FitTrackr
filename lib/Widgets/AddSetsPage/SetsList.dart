@@ -1,26 +1,25 @@
 import 'package:fit_trackr/Models/TrainingOption.dart';
 import 'package:fit_trackr/Models/TrainingSet.dart';
-import 'package:fit_trackr/Widgets/AddSetsAndReps/AddSetsAndRepsPopView.dart';
+import 'package:fit_trackr/Widgets/AddSetsPage/RepsAndKgInputView.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_trackr/DatabaseHelper.dart';
 
-class SetsAndRepsList extends StatefulWidget {
+class SetsList extends StatefulWidget {
   final TrainingOption option;
   final void Function() _setsWasUpdated;
 
   List<TrainingSet> _trainingSets = [];
 
-  SetsAndRepsList(
-      {required this.option, required void Function() setsWasUpdated})
+  SetsList({required this.option, required void Function() setsWasUpdated})
       : _setsWasUpdated = setsWasUpdated {
     _trainingSets = option.sets ?? [];
   }
 
   @override
-  State<SetsAndRepsList> createState() => _SetsAndRepsListState();
+  State<SetsList> createState() => _SetsListState();
 }
 
-class _SetsAndRepsListState extends State<SetsAndRepsList> {
+class _SetsListState extends State<SetsList> {
   var _isEditMode = false;
 
   @override
@@ -51,7 +50,7 @@ class _SetsAndRepsListState extends State<SetsAndRepsList> {
                             decoration: const BoxDecoration(
                               color: Color(0xff757575),
                             ),
-                            child: AddSetsAndRepsPopView(
+                            child: RepsAndKgInputView(
                               trainingSetWasAdded: (set) async {
                                 setState(() {
                                   widget._trainingSets.add(set);

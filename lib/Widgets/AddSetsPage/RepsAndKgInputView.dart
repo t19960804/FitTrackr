@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'SetsAndRepsTextField.dart';
+import 'IntputTextField.dart';
 import 'FinishButton.dart';
 import 'package:fit_trackr/Models/TrainingSet.dart';
 
-class AddSetsAndRepsPopView extends StatelessWidget {
+class RepsAndKgInputView extends StatelessWidget {
   final void Function(TrainingSet) trainingSetWasAdded;
   var _reps = 0;
   var _kg = 0;
-  AddSetsAndRepsPopView({super.key, required this.trainingSetWasAdded});
+  RepsAndKgInputView({super.key, required this.trainingSetWasAdded});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class AddSetsAndRepsPopView extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
-                      SetsAndRepsTextField(
+                      IntputTextField(
                         onChanged: (value) {
                           _reps = int.parse(value);
                         },
@@ -65,7 +65,7 @@ class AddSetsAndRepsPopView extends StatelessWidget {
                             fontWeight: FontWeight.bold),
                         textAlign: TextAlign.center,
                       ),
-                      SetsAndRepsTextField(
+                      IntputTextField(
                         onChanged: (value) {
                           _kg = int.parse(value);
                         },
