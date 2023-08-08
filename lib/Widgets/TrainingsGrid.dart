@@ -109,6 +109,7 @@ class _TrainingsGridState extends State<TrainingsGrid> {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return VolumeGraphPage(
                       option: options[j],
+                      points: PricePoint.getPricePoints(),
                     );
                   }));
                 }
