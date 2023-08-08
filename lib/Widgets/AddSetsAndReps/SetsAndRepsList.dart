@@ -6,9 +6,13 @@ import 'package:fit_trackr/DatabaseHelper.dart';
 
 class SetsAndRepsList extends StatefulWidget {
   final TrainingOption option;
+  final void Function() _setsWasUpdated;
+
   List<TrainingSet> _trainingSets = [];
 
-  SetsAndRepsList({required this.option}) {
+  SetsAndRepsList(
+      {required this.option, required void Function() setsWasUpdated})
+      : _setsWasUpdated = setsWasUpdated {
     _trainingSets = option.sets ?? [];
   }
 
@@ -53,8 +57,12 @@ class _SetsAndRepsListState extends State<SetsAndRepsList> {
                                   widget._trainingSets.add(set);
                                 });
                                 widget.option.sets = widget._trainingSets;
+                                widget.option.volume =
+                                    TrainingOption.calculateVolume(
+                                        widget.option.sets!);
                                 DatabaseHelper.getSharedInstance()
                                     .updateTrainingOption(widget.option);
+                                widget._setsWasUpdated();
                               },
                             ),
                           ),

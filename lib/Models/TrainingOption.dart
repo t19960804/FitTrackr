@@ -1,6 +1,5 @@
 import 'TrainingSet.dart';
 import 'dart:convert';
-import 'package:fit_trackr/DatabaseHelper.dart';
 
 class TrainingOption {
   // 在class中宣告一個const屬性, 此時需要加上static
@@ -47,5 +46,13 @@ class TrainingOption {
         ?.map(
             (setMap) => TrainingSet.fromMap(Map<String, dynamic>.from(setMap)))
         .toList();
+  }
+
+  static int calculateVolume(List<TrainingSet> sets) {
+    int volume = 0;
+    for (var set in sets) {
+      volume += set.reps * set.kg;
+    }
+    return volume;
   }
 }

@@ -1,7 +1,7 @@
 import 'package:fit_trackr/Models/TrainingOption.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_trackr/Widgets/CalenderTab/Calender.dart';
-import 'package:fit_trackr/Widgets/TodayTrainingOptionsList.dart';
+import 'package:fit_trackr/Widgets/CalenderTab/TodayTrainingOptionsList.dart';
 import 'package:fit_trackr/Widgets/TrainingsGrid.dart';
 import 'DatabaseHelper.dart';
 
