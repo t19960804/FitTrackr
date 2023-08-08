@@ -1,4 +1,4 @@
-import 'package:fit_trackr/Models/TrainingPart.dart';
+import 'package:fit_trackr/Models/TrainingOption.dart';
 import 'package:flutter/material.dart';
 import 'AddSetsAndReps/SetsAndRepsList.dart';
 

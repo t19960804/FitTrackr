@@ -1,8 +1,8 @@
-import 'package:fit_trackr/Models/TrainingPart.dart';
+import 'package:fit_trackr/Models/TrainingOption.dart';
 import 'package:fit_trackr/Models/TrainingSet.dart';
 import 'package:fit_trackr/Widgets/AddSetsAndReps/AddSetsAndRepsPopView.dart';
 import 'package:flutter/material.dart';
-import 'package:fit_trackr/SQLiteDB.dart';
+import 'package:fit_trackr/DatabaseHelper.dart';
 
 class SetsAndRepsList extends StatefulWidget {
   final TrainingOption option;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fit_trackr/Models/TrainingPart.dart';
+import 'package:fit_trackr/Models/TrainingOption.dart';
 
 class TrainingsGrid extends StatefulWidget {
   var trainingParts = [

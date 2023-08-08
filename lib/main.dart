@@ -1,9 +1,9 @@
-import 'package:fit_trackr/Models/TrainingPart.dart';
+import 'package:fit_trackr/Models/TrainingOption.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_trackr/Widgets/CalenderTab/Calender.dart';
 import 'package:fit_trackr/Widgets/TodayTrainingOptionsList.dart';
 import 'package:fit_trackr/Widgets/TrainingsGrid.dart';
-import 'SQLiteDB.dart';
+import 'DatabaseHelper.dart';
 
 void main() {
   // const > 用來宣告編譯時就已經確定的值, 並且未來不再改變, 因此它只會被創建一次，未來需要時可以直接使用, 省下未來重新創建所需要的資源
