@@ -4,7 +4,9 @@ import 'package:fl_chart/fl_chart.dart';
 
 class VolumeGraphPage extends StatelessWidget {
   final TrainingOption option;
-  const VolumeGraphPage({super.key, required this.option});
+  final _lineColor = Colors.black.withOpacity(0.5);
+
+  VolumeGraphPage({super.key, required this.option});
 
   @override
   Widget build(BuildContext context) {
@@ -46,14 +48,14 @@ class VolumeGraphPage extends StatelessWidget {
         horizontalInterval: 1,
         verticalInterval: 1,
         getDrawingHorizontalLine: (value) {
-          return const FlLine(
-            color: Colors.grey,
+          return FlLine(
+            color: _lineColor,
             strokeWidth: 1,
           );
         },
         getDrawingVerticalLine: (value) {
-          return const FlLine(
-            color: Colors.grey,
+          return FlLine(
+            color: _lineColor,
             strokeWidth: 1,
           );
         },
@@ -85,7 +87,7 @@ class VolumeGraphPage extends StatelessWidget {
       ),
       borderData: FlBorderData(
         show: true,
-        border: Border.all(color: const Color(0xff37434d)),
+        border: Border.all(color: _lineColor),
       ),
       minX: 0,
       maxX: 11,
