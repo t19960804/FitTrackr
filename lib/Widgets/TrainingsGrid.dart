@@ -107,10 +107,7 @@ class _TrainingsGridState extends State<TrainingsGrid> {
                   Navigator.pop(context);
                 } else {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return VolumeGraphPage(
-                      option: options[j],
-                      points: PricePoint.getPricePoints(),
-                    );
+                    return VolumeGraphPage(option: options[j]);
                   }));
                 }
               },
