@@ -1,5 +1,6 @@
-import 'package:fit_trackr/Models/TrainingPart.dart';
+import 'package:fit_trackr/Models/TrainingOption.dart';
 import 'package:flutter/material.dart';
+import '../AddSetsPage/SetsList.dart';
 
 class TodayTrainingOptionsList extends StatefulWidget {
   var trainingOptions = [];
@@ -33,7 +34,14 @@ class _TodayTrainingOptionsListState extends State<TodayTrainingOptionsList> {
                 widget.selectStatus[index] = true;
 
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return Text("${option.name}");
+                  return SetsList(
+                    option: option,
+                    setsWasUpdated: () {
+                      setState(() {
+                        print("Sets update");
+                      });
+                    },
+                  );
                 }));
               });
             },
