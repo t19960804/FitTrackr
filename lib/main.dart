@@ -54,7 +54,7 @@ class _MainTabPageState extends State<MainTabPage> {
   void updateTrainingOptions({required DateTime dateTime}) async {
     final options = await DatabaseHelper.getSharedInstance()
         .readTrainingOptions(
-            predicate:
+            where:
                 "dateTime = ${dateTime.year}${dateTime.month}${dateTime.day}");
     setState(() {
       _trainingOptions = options;

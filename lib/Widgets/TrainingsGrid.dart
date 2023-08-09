@@ -3,6 +3,7 @@ import 'package:fit_trackr/Models/TrainingPart.dart';
 import 'package:fit_trackr/Models/TrainingOption.dart';
 import 'package:fit_trackr/main.dart';
 import 'package:fit_trackr/Widgets/VolumeGraph/VolumeGraphPage.dart';
+import 'package:fit_trackr/DatabaseHelper.dart';
 
 class TrainingsGrid extends StatefulWidget {
   var trainingParts = [
@@ -97,7 +98,7 @@ class _TrainingsGridState extends State<TrainingsGrid> {
           (BuildContext context, int j) {
             final isSelected = widget.selectStatus[i][j];
             return TextButton(
-              onPressed: () {
+              onPressed: () async {
                 setState(() {
                   widget._resetSelectStatus();
                   widget.selectStatus[i][j] = true;
@@ -106,8 +107,19 @@ class _TrainingsGridState extends State<TrainingsGrid> {
                 if (widget.type == MainTabType.calender) {
                   Navigator.pop(context);
                 } else {
+                  final currentTime = DateTime.now();
+                  final optionsInCurrentYear =
+                      await DatabaseHelper.getSharedInstance()
+                          .readTrainingOptions(
+                              where: "dateTime LIKE ? AND name LIKE ?",
+                              whereArgs: [
+                        "%${currentTime.year}%",
+                        "%${options[j].name}%"
+                      ]);
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return VolumeGraphPage(option: options[j]);
+                    return VolumeGraphPage(
+                        navTitle: options[j].name,
+                        options: optionsInCurrentYear);
                   }));
                 }
               },

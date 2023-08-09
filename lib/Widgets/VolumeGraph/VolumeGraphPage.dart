@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:fit_trackr/Widgets/VolumeGraph/VolumeGraph.dart';
 
 class VolumeGraphPage extends StatelessWidget {
-  final TrainingOption option;
-  VolumeGraphPage({super.key, required this.option});
+  final String navTitle;
+  List<TrainingOption> options;
+  VolumeGraphPage({super.key, required this.navTitle, required this.options});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class VolumeGraphPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text(
-          option.name,
+          navTitle,
           style: const TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -63,7 +64,7 @@ class VolumeGraphPage extends StatelessWidget {
                   ),
                 );
               },
-              itemCount: 5,
+              itemCount: options.length,
             ),
           )
         ],
