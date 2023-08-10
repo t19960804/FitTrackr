@@ -52,10 +52,9 @@ class _MainTabPageState extends State<MainTabPage> {
   }
 
   void updateTrainingOptions({required DateTime dateTime}) async {
-    final options = await DatabaseHelper.getSharedInstance()
-        .readTrainingOptions(
-            where:
-                "dateTime = ${dateTime.year}${dateTime.month}${dateTime.day}");
+    final options = await DatabaseHelper.getSharedInstance().readTrainingOptions(
+        where:
+            "dateTime = ${TrainingOption.getFormattedDateTimeString(dateTime)}");
     setState(() {
       _trainingOptions = options;
     });
@@ -91,7 +90,8 @@ class _MainTabPageState extends State<MainTabPage> {
                         type: MainTabType.calender,
                         optionWasSelected: (option) async {
                           option.dateTime =
-                              "${_selectedDay.year}${_selectedDay.month}${_selectedDay.day}";
+                              TrainingOption.getFormattedDateTimeString(
+                                  _selectedDay);
                           DatabaseHelper.getSharedInstance()
                               .createTrainingOption(option);
                           updateTrainingOptions(dateTime: _selectedDay);

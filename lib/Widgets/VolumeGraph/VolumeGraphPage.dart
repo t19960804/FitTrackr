@@ -26,6 +26,9 @@ class VolumeGraphPage extends StatelessWidget {
             child: ListView.builder(
               // 在Column裡面使用ListView這種具有無限延展性的Widget，需要用Expanded包住
               itemBuilder: (context, index) {
+                final dateTime = options[index].dateTime ?? "unknown";
+                final volume = options[index].volume ?? -1;
+
                 return Container(
                   margin: const EdgeInsets.all(10),
                   height: 120,
@@ -43,7 +46,7 @@ class VolumeGraphPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "2023-08-09",
+                          dateTime,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 24,
@@ -52,7 +55,7 @@ class VolumeGraphPage extends StatelessWidget {
                         ),
                         Spacer(),
                         Text(
-                          "5K",
+                          "$volume",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 24,
