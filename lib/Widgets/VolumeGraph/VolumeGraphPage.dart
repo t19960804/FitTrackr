@@ -21,7 +21,9 @@ class VolumeGraphPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          VolumeGraph(),
+          VolumeGraph(
+            options: options,
+          ),
           Expanded(
             child: ListView.builder(
               // 在Column裡面使用ListView這種具有無限延展性的Widget，需要用Expanded包住
