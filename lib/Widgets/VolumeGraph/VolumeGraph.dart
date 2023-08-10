@@ -5,18 +5,22 @@ import 'package:fit_trackr/Models/TrainingOption.dart';
 class VolumeGraph extends StatelessWidget {
   final _lineColor = Colors.black.withOpacity(0.5);
   List<TrainingOption> options;
-  Map<int, List<TrainingOption>> resultMap = {};
+  Map<int, List<TrainingOption>> map_month_options = {};
 
   VolumeGraph({super.key, required this.options}) {
+    fillUpMap();
+  }
+
+  void fillUpMap() {
     for (var option in options) {
       if (option.dateTime != null && option.dateTime!.length >= 6) {
         var month = int.parse(option.dateTime!.substring(4, 6));
 
         // If the key (month) doesn't exist in the map, create an empty list for it
-        resultMap[month] ??= [];
+        map_month_options[month] ??= [];
 
         // Add the TrainingOption to the list corresponding to the month
-        resultMap[month]!.add(option);
+        map_month_options[month]!.add(option);
       }
     }
   }
@@ -33,7 +37,7 @@ class VolumeGraph extends StatelessWidget {
           bottom: 12,
         ),
         child: LineChart(
-          mainData(gradientColors: [
+          getChartData(gradientColors: [
             Theme.of(context).colorScheme.secondary,
             Theme.of(context).colorScheme.primary
           ]),
@@ -42,7 +46,7 @@ class VolumeGraph extends StatelessWidget {
     );
   }
 
-  LineChartData mainData({required List<Color> gradientColors}) {
+  LineChartData getChartData({required List<Color> gradientColors}) {
     return LineChartData(
       gridData: FlGridData(
         show: true,
@@ -97,21 +101,7 @@ class VolumeGraph extends StatelessWidget {
       maxY: 6,
       lineBarsData: [
         LineChartBarData(
-          spots: [
-            const FlSpot(0, 0),
-            FlSpot(1, getTotalVolume(resultMap[1])),
-            FlSpot(2, getTotalVolume(resultMap[2])),
-            FlSpot(3, getTotalVolume(resultMap[3])),
-            FlSpot(4, getTotalVolume(resultMap[4])),
-            FlSpot(5, getTotalVolume(resultMap[5])),
-            FlSpot(6, getTotalVolume(resultMap[6])),
-            FlSpot(7, getTotalVolume(resultMap[7])),
-            FlSpot(8, getTotalVolume(resultMap[8])),
-            FlSpot(9, getTotalVolume(resultMap[9])),
-            FlSpot(10, getTotalVolume(resultMap[10])),
-            FlSpot(11, getTotalVolume(resultMap[11])),
-            FlSpot(12, getTotalVolume(resultMap[12])),
-          ],
+          spots: getFlSpots(),
           isCurved: true,
           gradient: LinearGradient(
             colors: gradientColors,
@@ -194,5 +184,17 @@ class VolumeGraph extends StatelessWidget {
       sum += option.volume ?? 0;
     }
     return sum / 10000;
+  }
+
+  List<FlSpot> getFlSpots() {
+    List<FlSpot> spots = [];
+    for (double i = 0; i <= 12; i++) {
+      if (i == 0) {
+        spots.add(const FlSpot(0, 0));
+      } else {
+        spots.add(FlSpot(i, getTotalVolume(map_month_options[i])));
+      }
+    }
+    return spots;
   }
 }
