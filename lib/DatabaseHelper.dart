@@ -39,9 +39,11 @@ class DatabaseHelper {
     );
   }
 
-  Future<List<TrainingOption>> readTrainingOptions({String? predicate}) async {
+  Future<List<TrainingOption>> readTrainingOptions(
+      {String? where, List<String>? whereArgs}) async {
     final db = await _database();
-    final maps = await db.query(TrainingOption.tableName, where: predicate);
+    final maps = await db.query(TrainingOption.tableName,
+        where: where, whereArgs: whereArgs);
     return List.generate(maps.length, (i) {
       return TrainingOption.fromMap(maps[i]);
     });

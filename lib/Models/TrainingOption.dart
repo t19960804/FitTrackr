@@ -55,4 +55,12 @@ class TrainingOption {
     }
     return volume;
   }
+
+  static String getFormattedDateTimeString(DateTime dateTime) {
+    final yearString = "${dateTime.year}";
+    final monthString =
+        dateTime.month >= 10 ? dateTime.month : "0${dateTime.month}";
+    final dayString = dateTime.day >= 10 ? dateTime.day : "0${dateTime.day}";
+    return "$yearString$monthString$dayString";
+  }
 }
