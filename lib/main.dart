@@ -153,7 +153,7 @@ class _MainTabPageState extends State<MainTabPage> {
                   updateTrainingOptions(dateTime: _selectedDay);
                 },
               ),
-              TodayTrainingOptionsList(_trainingOptions),
+              TodayTrainingOptionsList(_trainingOptions, _isEditMode),
             ],
           ),
         );
