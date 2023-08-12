@@ -29,7 +29,7 @@ class VolumeGraphPage extends StatelessWidget {
               // 在Column裡面使用ListView這種具有無限延展性的Widget，需要用Expanded包住
               itemBuilder: (context, index) {
                 final dateTime = options[index].dateTime ?? "unknown";
-                final volume = options[index].volume ?? -1;
+                final volume = options[index].volume ?? 0;
 
                 return Container(
                   margin: const EdgeInsets.all(10),

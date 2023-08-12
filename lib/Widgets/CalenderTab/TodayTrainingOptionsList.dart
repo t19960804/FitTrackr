@@ -93,7 +93,7 @@ class _TodayTrainingOptionsListState extends State<TodayTrainingOptionsList> {
                         ),
                         const Spacer(),
                         Text(
-                          "${option.volume}",
+                          "${option.volume ?? 0}",
                           style: TextStyle(
                             fontWeight: isSelected
                                 ? FontWeight.bold
