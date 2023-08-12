@@ -55,12 +55,7 @@ class _SetsListState extends State<SetsList> {
                                 setState(() {
                                   widget._trainingSets.add(set);
                                 });
-                                widget.option.sets = widget._trainingSets;
-                                widget.option.volume =
-                                    TrainingOption.calculateVolume(
-                                        widget.option.sets!);
-                                DatabaseHelper.getSharedInstance()
-                                    .updateTrainingOption(widget.option);
+                                updateTrainingOptionInDB();
                                 widget._setsWasUpdated();
                               },
                             ),
@@ -88,74 +83,96 @@ class _SetsListState extends State<SetsList> {
       body: ListView.builder(
         itemBuilder: (context, index) {
           final trainingSet = widget._trainingSets[index];
-          return Container(
-            margin: const EdgeInsets.all(10),
-            height: 120,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.grey,
-                width: 3.0,
-              ),
-              borderRadius: BorderRadius.circular(10),
-              color: Colors.transparent,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    _toOrdinal(index + 1),
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 24,
-                      color: Colors.grey,
-                    ),
+          return Stack(
+            children: [
+              Container(
+                margin: const EdgeInsets.all(10),
+                height: 120,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 3.0,
                   ),
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.transparent,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "${trainingSet.reps}",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 28,
-                        color: Colors.grey,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        _toOrdinal(index + 1),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                          color: Colors.grey,
+                        ),
                       ),
                     ),
-                    Text(
-                      "reps",
-                      style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 18,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Container(
-                      width: 40,
-                    ),
-                    Text(
-                      "${trainingSet.kg}",
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 28,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    Text(
-                      "kg",
-                      style: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 18,
-                        color: Colors.grey,
-                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                          "${trainingSet.reps}",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Text(
+                          "reps",
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 18,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Container(
+                          width: 40,
+                        ),
+                        Text(
+                          "${trainingSet.kg}",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Text(
+                          "kg",
+                          style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 18,
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
+              ),
+              Positioned(
+                right: -10,
+                top: -10,
+                child: Visibility(
+                  visible: _isEditMode,
+                  child: IconButton(
+                    color: Colors.black,
+                    icon: const Icon(Icons.delete),
+                    onPressed: () {
+                      setState(() {
+                        widget._trainingSets.remove(trainingSet);
+                      });
+                      updateTrainingOptionInDB();
+                      widget._setsWasUpdated();
+                    },
+                  ),
+                ),
+              ),
+            ],
           );
         },
         itemCount: widget._trainingSets.length,
@@ -180,5 +197,11 @@ class _SetsListState extends State<SetsList> {
       default:
         return '${number}th';
     }
+  }
+
+  void updateTrainingOptionInDB() {
+    widget.option.sets = widget._trainingSets;
+    widget.option.volume = TrainingOption.calculateVolume(widget.option.sets!);
+    DatabaseHelper.getSharedInstance().updateTrainingOption(widget.option);
   }
 }
