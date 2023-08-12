@@ -3,11 +3,18 @@ import 'IntputTextField.dart';
 import 'FinishButton.dart';
 import 'package:fit_trackr/Models/TrainingSet.dart';
 
-class RepsAndKgInputView extends StatelessWidget {
+class RepsAndKgInputView extends StatefulWidget {
   final void Function(TrainingSet) trainingSetWasAdded;
-  var _reps = 0;
-  var _kg = 0;
   RepsAndKgInputView({super.key, required this.trainingSetWasAdded});
+
+  @override
+  State<RepsAndKgInputView> createState() => _RepsAndKgInputViewState();
+}
+
+class _RepsAndKgInputViewState extends State<RepsAndKgInputView> {
+  int? _reps;
+  int? _kg;
+  var _repsAndKgWasInput = false;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +54,12 @@ class RepsAndKgInputView extends StatelessWidget {
                       ),
                       IntputTextField(
                         onChanged: (value) {
-                          _reps = int.parse(value);
+                          if (value == "") {
+                            _reps = null;
+                          } else {
+                            _reps = int.parse(value);
+                          }
+                          _checkRepsAndKgWasInput();
                         },
                       ),
                     ],
@@ -67,7 +79,12 @@ class RepsAndKgInputView extends StatelessWidget {
                       ),
                       IntputTextField(
                         onChanged: (value) {
-                          _kg = int.parse(value);
+                          if (value == "") {
+                            _kg = null;
+                          } else {
+                            _kg = int.parse(value);
+                          }
+                          _checkRepsAndKgWasInput();
                         },
                       ),
                     ],
@@ -77,14 +94,23 @@ class RepsAndKgInputView extends StatelessWidget {
             ),
             const SizedBox(height: 30),
             FinishButton(
+              canBePressed: _repsAndKgWasInput,
               onPressed: () {
-                final set = TrainingSet(reps: _reps, kg: _kg);
-                trainingSetWasAdded(set);
+                if (_reps != null && _kg != null) {
+                  final set = TrainingSet(reps: _reps!, kg: _kg!);
+                  widget.trainingSetWasAdded(set);
+                }
               },
             ),
           ],
         ),
       ),
     );
+  }
+
+  void _checkRepsAndKgWasInput() {
+    setState(() {
+      _repsAndKgWasInput = (_reps != null && _kg != null);
+    });
   }
 }
