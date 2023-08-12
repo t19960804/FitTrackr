@@ -33,7 +33,7 @@ class VolumeGraphPage extends StatelessWidget {
 
                 return Container(
                   margin: const EdgeInsets.all(10),
-                  height: 120,
+                  height: 80,
                   decoration: BoxDecoration(
                     border: Border.all(
                       color: Colors.grey,
