@@ -79,12 +79,20 @@ class _TrainingsGridState extends State<TrainingsGrid> {
 
       final header = SliverAppBar(
         automaticallyImplyLeading: false,
-        expandedHeight: 100, // 設置AppBar展開的高度
+        expandedHeight: 100,
         flexibleSpace: FlexibleSpaceBar(
-          title: Text(
-            part.name,
-            style: const TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 24, color: Colors.grey),
+          title: Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 9, top: 35),
+              child: Text(
+                part.name,
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 24,
+                    color: Colors.grey),
+              ),
+            ),
           ),
         ),
       );
