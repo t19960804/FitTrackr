@@ -1,9 +1,8 @@
-import 'package:fit_trackr/DatabaseHelper.dart';
+import 'package:fit_trackr/Helpers/AlertHelper.dart';
+import 'package:fit_trackr/Helpers/DatabaseHelper.dart';
 import 'package:fit_trackr/Models/TrainingOption.dart';
 import 'package:flutter/material.dart';
 import '../AddSetsPage/SetsList.dart';
-import 'package:flutter/cupertino.dart';
-import 'dart:io';
 
 class TodayTrainingOptionsList extends StatefulWidget {
   var trainingOptions = [];
@@ -117,20 +116,16 @@ class _TodayTrainingOptionsListState extends State<TodayTrainingOptionsList> {
                       color: Colors.black,
                       icon: const Icon(Icons.delete),
                       onPressed: () {
-                        _showAlert(
-                          context,
-                          deleteAction: () {
-                            setState(() {
-                              widget.trainingOptions.remove(option);
-                            });
-                            DatabaseHelper.getSharedInstance()
-                                .deleteTrainingOption(option);
-                            Navigator.of(context).pop();
-                          },
-                          cancelAction: () {
-                            Navigator.of(context).pop();
-                          },
-                        );
+                        AlertHelper.showAlert(context, deleteAction: () {
+                          setState(() {
+                            widget.trainingOptions.remove(option);
+                          });
+                          DatabaseHelper.getSharedInstance()
+                              .deleteTrainingOption(option);
+                          Navigator.of(context).pop();
+                        }, cancelAction: () {
+                          Navigator.of(context).pop();
+                        });
                       },
                     ),
                   ),
@@ -141,60 +136,6 @@ class _TodayTrainingOptionsListState extends State<TodayTrainingOptionsList> {
         },
         itemCount: widget.trainingOptions.length,
       ),
-    );
-  }
-
-  void _showAlert(BuildContext context,
-      {required void Function()? deleteAction,
-      required void Function()? cancelAction}) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        const title = "Delete training";
-        const content = "This operation can't redo";
-        const btnDeleteTitle = "Delete";
-        const btnCancelTitle = "Cancel";
-
-        if (Platform.isIOS) {
-          return CupertinoAlertDialog(
-            title: const Text(title),
-            content: const Text(content),
-            actions: <Widget>[
-              CupertinoDialogAction(
-                onPressed: cancelAction,
-                child: const Text(
-                  btnCancelTitle,
-                  style: TextStyle(color: Colors.blue),
-                ),
-              ),
-              CupertinoDialogAction(
-                onPressed: deleteAction,
-                child: const Text(
-                  btnDeleteTitle,
-                  style: TextStyle(
-                    color: Colors.red,
-                  ),
-                ),
-              ),
-            ],
-          );
-        } else {
-          return AlertDialog(
-            title: const Text(title),
-            content: const Text(content),
-            actions: <Widget>[
-              TextButton(
-                onPressed: cancelAction,
-                child: const Text(btnCancelTitle),
-              ),
-              TextButton(
-                onPressed: deleteAction,
-                child: const Text(btnDeleteTitle),
-              ),
-            ],
-          );
-        }
-      },
     );
   }
 }

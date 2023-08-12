@@ -3,7 +3,7 @@ import 'package:fit_trackr/Models/TrainingPart.dart';
 import 'package:fit_trackr/Models/TrainingOption.dart';
 import 'package:fit_trackr/main.dart';
 import 'package:fit_trackr/Widgets/VolumeGraph/VolumeGraphPage.dart';
-import 'package:fit_trackr/DatabaseHelper.dart';
+import 'package:fit_trackr/Helpers/DatabaseHelper.dart';
 
 class TrainingsGrid extends StatefulWidget {
   var trainingParts = [

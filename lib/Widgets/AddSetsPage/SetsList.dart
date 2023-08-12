@@ -2,7 +2,8 @@ import 'package:fit_trackr/Models/TrainingOption.dart';
 import 'package:fit_trackr/Models/TrainingSet.dart';
 import 'package:fit_trackr/Widgets/AddSetsPage/RepsAndKgInputView.dart';
 import 'package:flutter/material.dart';
-import 'package:fit_trackr/DatabaseHelper.dart';
+import 'package:fit_trackr/Helpers/DatabaseHelper.dart';
+import 'package:fit_trackr/Helpers/AlertHelper.dart';
 
 class SetsList extends StatefulWidget {
   final TrainingOption option;
@@ -163,11 +164,16 @@ class _SetsListState extends State<SetsList> {
                     color: Colors.black,
                     icon: const Icon(Icons.delete),
                     onPressed: () {
-                      setState(() {
-                        widget._trainingSets.remove(trainingSet);
+                      AlertHelper.showAlert(context, deleteAction: () {
+                        setState(() {
+                          widget._trainingSets.remove(trainingSet);
+                        });
+                        updateTrainingOptionInDB();
+                        widget._setsWasUpdated();
+                        Navigator.of(context).pop();
+                      }, cancelAction: () {
+                        Navigator.of(context).pop();
                       });
-                      updateTrainingOptionInDB();
-                      widget._setsWasUpdated();
                     },
                   ),
                 ),
