@@ -1,6 +1,7 @@
 import 'package:fit_trackr/Models/TrainingOption.dart';
 import 'package:fit_trackr/Models/TrainingSet.dart';
 import 'package:fit_trackr/Widgets/AddSetsPage/RepsAndKgInputView.dart';
+import 'package:fit_trackr/Widgets/DeleteButton.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_trackr/Helpers/DatabaseHelper.dart';
 import 'package:fit_trackr/Helpers/AlertHelper.dart';
@@ -87,7 +88,7 @@ class _SetsListState extends State<SetsList> {
           return Stack(
             children: [
               Container(
-                margin: const EdgeInsets.all(10),
+                margin: const EdgeInsets.all(20),
                 height: 120,
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -156,14 +157,12 @@ class _SetsListState extends State<SetsList> {
                 ),
               ),
               Positioned(
-                right: -10,
-                top: -10,
+                right: 5,
+                top: 5,
                 child: Visibility(
                   visible: _isEditMode,
-                  child: IconButton(
-                    color: Colors.black,
-                    icon: const Icon(Icons.delete),
-                    onPressed: () {
+                  child: DeleteButton(
+                    onTap: () {
                       AlertHelper.showAlert(context, deleteAction: () {
                         setState(() {
                           widget._trainingSets.remove(trainingSet);

@@ -1,6 +1,7 @@
 import 'package:fit_trackr/Helpers/AlertHelper.dart';
 import 'package:fit_trackr/Helpers/DatabaseHelper.dart';
 import 'package:fit_trackr/Models/TrainingOption.dart';
+import 'package:fit_trackr/Widgets/DeleteButton.dart';
 import 'package:flutter/material.dart';
 import '../AddSetsPage/SetsList.dart';
 
@@ -108,14 +109,12 @@ class _TodayTrainingOptionsListState extends State<TodayTrainingOptionsList> {
                   ),
                 ),
                 Positioned(
-                  right: -10,
-                  top: -10,
+                  right: 0,
+                  top: 0,
                   child: Visibility(
                     visible: widget.isEditMode,
-                    child: IconButton(
-                      color: Colors.black,
-                      icon: const Icon(Icons.delete),
-                      onPressed: () {
+                    child: DeleteButton(
+                      onTap: () {
                         AlertHelper.showAlert(context, deleteAction: () {
                           setState(() {
                             widget.trainingOptions.remove(option);
