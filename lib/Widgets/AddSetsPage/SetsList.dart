@@ -29,17 +29,13 @@ class _SetsListState extends State<SetsList> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _setupShakeAnimation();
+    helper = ShakeAnimationHelper(provider: this);
   }
 
   @override
   void dispose() {
     helper.controller.dispose();
     super.dispose();
-  }
-
-  void _setupShakeAnimation() {
-    helper = ShakeAnimationHelper(provider: this);
   }
 
   @override
@@ -109,7 +105,7 @@ class _SetsListState extends State<SetsList> with TickerProviderStateMixin {
             animation: helper.animation,
             builder: (BuildContext context, Widget? child) {
               return Transform.rotate(
-                angle: _isEditMode ? helper.animation.value * 0.02 : 0,
+                angle: helper.getShakingAngle(_isEditMode),
                 child: Stack(
                   children: [
                     Container(

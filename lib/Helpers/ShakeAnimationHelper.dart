@@ -25,4 +25,8 @@ class ShakeAnimationHelper {
   void stop() {
     controller.stop();
   }
+
+  double getShakingAngle(bool isShaking) {
+    return isShaking ? animation.value * 0.02 : 0;
+  }
 }
