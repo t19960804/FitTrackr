@@ -5,6 +5,7 @@ import 'package:fit_trackr/Widgets/DeleteButton.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_trackr/Helpers/DatabaseHelper.dart';
 import 'package:fit_trackr/Helpers/AlertHelper.dart';
+import 'package:fit_trackr/Helpers/ShakeAnimationHelper.dart';
 
 class SetsList extends StatefulWidget {
   final TrainingOption option;
@@ -22,8 +23,7 @@ class SetsList extends StatefulWidget {
 }
 
 class _SetsListState extends State<SetsList> with TickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
+  late ShakeAnimationHelper helper;
   var _isEditMode = false;
 
   @override
@@ -34,17 +34,12 @@ class _SetsListState extends State<SetsList> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    _controller.dispose();
+    helper.controller.dispose();
     super.dispose();
   }
 
   void _setupShakeAnimation() {
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 150),
-      vsync: this,
-    )..repeat(reverse: true);
-    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
-    _controller.stop();
+    helper = ShakeAnimationHelper(provider: this);
   }
 
   @override
@@ -98,10 +93,10 @@ class _SetsListState extends State<SetsList> with TickerProviderStateMixin {
                 setState(() {
                   if (_isEditMode == true) {
                     _isEditMode = false;
-                    _controller.stop();
+                    helper.stop();
                   } else {
                     _isEditMode = true;
-                    _controller.repeat(reverse: true);
+                    helper.start();
                   }
                 });
               },
@@ -111,10 +106,10 @@ class _SetsListState extends State<SetsList> with TickerProviderStateMixin {
         itemBuilder: (context, index) {
           final trainingSet = widget._trainingSets[index];
           return AnimatedBuilder(
-            animation: _animation,
+            animation: helper.animation,
             builder: (BuildContext context, Widget? child) {
               return Transform.rotate(
-                angle: _isEditMode ? _animation.value * 0.02 : 0,
+                angle: _isEditMode ? helper.animation.value * 0.02 : 0,
                 child: Stack(
                   children: [
                     Container(
