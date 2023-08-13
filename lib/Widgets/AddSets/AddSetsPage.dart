@@ -1,28 +1,29 @@
 import 'package:fit_trackr/Models/TrainingOption.dart';
 import 'package:fit_trackr/Models/TrainingSet.dart';
-import 'package:fit_trackr/Widgets/AddSetsPage/RepsAndKgInputView.dart';
+import 'package:fit_trackr/Widgets/AddSets/RepsAndKgInputView.dart';
 import 'package:fit_trackr/Widgets/DeleteButton.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_trackr/Helpers/DatabaseHelper.dart';
 import 'package:fit_trackr/Helpers/AlertHelper.dart';
 import 'package:fit_trackr/Helpers/ShakeAnimationHelper.dart';
 
-class SetsList extends StatefulWidget {
+class AddSetsPage extends StatefulWidget {
   final TrainingOption option;
   final void Function() _setsWasUpdated;
 
   List<TrainingSet> _trainingSets = [];
 
-  SetsList({required this.option, required void Function() setsWasUpdated})
+  AddSetsPage({required this.option, required void Function() setsWasUpdated})
       : _setsWasUpdated = setsWasUpdated {
     _trainingSets = option.sets ?? [];
   }
 
   @override
-  State<SetsList> createState() => _SetsListState();
+  State<AddSetsPage> createState() => _AddSetsPageState();
 }
 
-class _SetsListState extends State<SetsList> with TickerProviderStateMixin {
+class _AddSetsPageState extends State<AddSetsPage>
+    with TickerProviderStateMixin {
   late ShakeAnimationHelper helper;
   var _isEditMode = false;
 

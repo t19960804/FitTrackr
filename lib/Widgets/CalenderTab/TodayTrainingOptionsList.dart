@@ -3,7 +3,7 @@ import 'package:fit_trackr/Helpers/DatabaseHelper.dart';
 import 'package:fit_trackr/Models/TrainingOption.dart';
 import 'package:fit_trackr/Widgets/DeleteButton.dart';
 import 'package:flutter/material.dart';
-import '../AddSetsPage/SetsList.dart';
+import '../AddSets/AddSetsPage.dart';
 
 class TodayTrainingOptionsList extends StatefulWidget {
   var trainingOptions = [];
@@ -40,7 +40,7 @@ class _TodayTrainingOptionsListState extends State<TodayTrainingOptionsList> {
                 widget.selectStatus[index] = true;
 
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return SetsList(
+                  return AddSetsPage(
                     option: option,
                     setsWasUpdated: () {
                       setState(() {
