@@ -21,8 +21,31 @@ class SetsList extends StatefulWidget {
   State<SetsList> createState() => _SetsListState();
 }
 
-class _SetsListState extends State<SetsList> {
+class _SetsListState extends State<SetsList> with TickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
   var _isEditMode = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _setupShakeAnimation();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _setupShakeAnimation() {
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 150),
+      vsync: this,
+    )..repeat(reverse: true);
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
+    _controller.stop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,8 +98,10 @@ class _SetsListState extends State<SetsList> {
                 setState(() {
                   if (_isEditMode == true) {
                     _isEditMode = false;
+                    _controller.stop();
                   } else {
                     _isEditMode = true;
+                    _controller.repeat(reverse: true);
                   }
                 });
               },
@@ -85,99 +110,107 @@ class _SetsListState extends State<SetsList> {
       body: ListView.builder(
         itemBuilder: (context, index) {
           final trainingSet = widget._trainingSets[index];
-          return Stack(
-            children: [
-              Container(
-                margin: const EdgeInsets.all(20),
-                height: 120,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.grey,
-                    width: 3.0,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.transparent,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          return AnimatedBuilder(
+            animation: _animation,
+            builder: (BuildContext context, Widget? child) {
+              return Transform.rotate(
+                angle: _isEditMode ? _animation.value * 0.02 : 0,
+                child: Stack(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        _toOrdinal(index + 1),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 24,
+                    Container(
+                      margin: const EdgeInsets.all(20),
+                      height: 120,
+                      decoration: BoxDecoration(
+                        border: Border.all(
                           color: Colors.grey,
+                          width: 3.0,
+                        ),
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.transparent,
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              _toOrdinal(index + 1),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                "${trainingSet.reps}",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 28,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              const Text(
+                                "reps",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 18,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              Container(
+                                width: 40,
+                              ),
+                              Text(
+                                "${trainingSet.kg}",
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 28,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              const Text(
+                                "kg",
+                                style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 18,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Positioned(
+                      right: 5,
+                      top: 5,
+                      child: Visibility(
+                        visible: _isEditMode,
+                        child: DeleteButton(
+                          onTap: () {
+                            AlertHelper.showAlert(context, deleteAction: () {
+                              setState(() {
+                                widget._trainingSets.remove(trainingSet);
+                              });
+                              updateTrainingOptionInDB();
+                              widget._setsWasUpdated();
+                              Navigator.of(context).pop();
+                            }, cancelAction: () {
+                              Navigator.of(context).pop();
+                            });
+                          },
                         ),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          "${trainingSet.reps}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 28,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        Text(
-                          "reps",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 18,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        Container(
-                          width: 40,
-                        ),
-                        Text(
-                          "${trainingSet.kg}",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 28,
-                            color: Colors.grey,
-                          ),
-                        ),
-                        Text(
-                          "kg",
-                          style: TextStyle(
-                            fontWeight: FontWeight.normal,
-                            fontSize: 18,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
                   ],
                 ),
-              ),
-              Positioned(
-                right: 5,
-                top: 5,
-                child: Visibility(
-                  visible: _isEditMode,
-                  child: DeleteButton(
-                    onTap: () {
-                      AlertHelper.showAlert(context, deleteAction: () {
-                        setState(() {
-                          widget._trainingSets.remove(trainingSet);
-                        });
-                        updateTrainingOptionInDB();
-                        widget._setsWasUpdated();
-                        Navigator.of(context).pop();
-                      }, cancelAction: () {
-                        Navigator.of(context).pop();
-                      });
-                    },
-                  ),
-                ),
-              ),
-            ],
+              );
+            },
           );
         },
         itemCount: widget._trainingSets.length,
