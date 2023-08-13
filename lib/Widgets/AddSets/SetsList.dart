@@ -3,29 +3,57 @@ import 'package:fit_trackr/Models/TrainingSet.dart';
 import 'package:fit_trackr/Widgets/DeleteButton.dart';
 import 'package:fit_trackr/Helpers/ShakeAnimationHelper.dart';
 
-class SetsList extends StatelessWidget {
-  final ShakeAnimationHelper helper;
+class SetsList extends StatefulWidget {
   final bool isEditMode;
   final List<TrainingSet> sets;
   final void Function(TrainingSet) deleteButtonTapped;
 
   const SetsList(
       {super.key,
-      required this.helper,
       required this.isEditMode,
       required this.sets,
       required this.deleteButtonTapped});
 
   @override
+  State<SetsList> createState() => _SetsListState();
+}
+
+class _SetsListState extends State<SetsList> with TickerProviderStateMixin {
+  late ShakeAnimationHelper helper;
+
+  @override
+  void initState() {
+    super.initState();
+    helper = ShakeAnimationHelper(provider: this);
+    helper.stop();
+  }
+
+  @override
+  void didUpdateWidget(SetsList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isEditMode == true) {
+      helper.start();
+    } else {
+      helper.stop();
+    }
+  }
+
+  @override
+  void dispose() {
+    helper.controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemBuilder: (context, index) {
-        final trainingSet = sets[index];
+        final trainingSet = widget.sets[index];
         return AnimatedBuilder(
           animation: helper.animation,
           builder: (BuildContext context, Widget? child) {
             return Transform.rotate(
-              angle: helper.getShakingAngle(isEditMode),
+              angle: helper.getShakingAngle(widget.isEditMode),
               child: Stack(
                 children: [
                   Container(
@@ -101,9 +129,9 @@ class SetsList extends StatelessWidget {
                     right: 5,
                     top: 5,
                     child: Visibility(
-                      visible: isEditMode,
+                      visible: widget.isEditMode,
                       child: DeleteButton(onTap: () {
-                        deleteButtonTapped(sets[index]);
+                        widget.deleteButtonTapped(widget.sets[index]);
                       }),
                     ),
                   ),
@@ -113,7 +141,7 @@ class SetsList extends StatelessWidget {
           },
         );
       },
-      itemCount: sets.length,
+      itemCount: widget.sets.length,
     );
   }
 

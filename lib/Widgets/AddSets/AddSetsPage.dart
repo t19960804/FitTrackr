@@ -5,7 +5,6 @@ import 'package:fit_trackr/Widgets/AddSets/SetsList.dart';
 import 'package:flutter/material.dart';
 import 'package:fit_trackr/Helpers/DatabaseHelper.dart';
 import 'package:fit_trackr/Helpers/AlertHelper.dart';
-import 'package:fit_trackr/Helpers/ShakeAnimationHelper.dart';
 
 class AddSetsPage extends StatefulWidget {
   final TrainingOption option;
@@ -22,22 +21,8 @@ class AddSetsPage extends StatefulWidget {
   State<AddSetsPage> createState() => _AddSetsPageState();
 }
 
-class _AddSetsPageState extends State<AddSetsPage>
-    with TickerProviderStateMixin {
-  late ShakeAnimationHelper helper;
+class _AddSetsPageState extends State<AddSetsPage> {
   var _isEditMode = false;
-
-  @override
-  void initState() {
-    super.initState();
-    helper = ShakeAnimationHelper(provider: this);
-  }
-
-  @override
-  void dispose() {
-    helper.controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,17 +75,14 @@ class _AddSetsPageState extends State<AddSetsPage>
                 setState(() {
                   if (_isEditMode == true) {
                     _isEditMode = false;
-                    helper.stop();
                   } else {
                     _isEditMode = true;
-                    helper.start();
                   }
                 });
               },
             ),
           ]),
       body: SetsList(
-        helper: helper,
         isEditMode: _isEditMode,
         sets: widget._trainingSets,
         deleteButtonTapped: (trainingSet) {
