@@ -121,11 +121,15 @@ class _TrainingsGridState extends State<TrainingsGrid> {
                         "%${currentTime.year}%",
                         "%${options[j].name}%"
                       ]);
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return VolumeGraphPage(
-                        navTitle: options[j].name,
-                        options: optionsInCurrentYear);
-                  }));
+                  if (context.mounted) {
+                    // 用mounted這個屬性, 來確認當前的Widget是否還存在, 避免非同步的操作後, Widget已經不在了, 卻又對它操作
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return VolumeGraphPage(
+                          navTitle: options[j].name,
+                          options: optionsInCurrentYear);
+                    }));
+                  }
                 }
               },
               child: Container(
