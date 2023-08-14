@@ -1,4 +1,4 @@
-import 'package:fit_trackr/Models/TrainingOption.dart';
+import 'package:fit_trackr/Models/training_option.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 

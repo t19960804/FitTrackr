@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:fit_trackr/Models/TrainingPart.dart';
-import 'package:fit_trackr/Models/TrainingOption.dart';
+import 'package:fit_trackr/Models/training_part.dart';
+import 'package:fit_trackr/Models/training_option.dart';
 import 'package:fit_trackr/main.dart';
-import 'package:fit_trackr/Widgets/VolumeGraph/VolumeGraphPage.dart';
-import 'package:fit_trackr/Helpers/DatabaseHelper.dart';
+import 'package:fit_trackr/Widgets/VolumeGraph/volume_graph_page.dart';
+import 'package:fit_trackr/Helpers/database_helper.dart';
 
 class TrainingsGrid extends StatefulWidget {
   var trainingParts = [

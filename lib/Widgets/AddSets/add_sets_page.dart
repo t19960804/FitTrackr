@@ -1,10 +1,10 @@
-import 'package:fit_trackr/Models/TrainingOption.dart';
-import 'package:fit_trackr/Models/TrainingSet.dart';
-import 'package:fit_trackr/Widgets/AddSets/RepsAndKgInputView.dart';
-import 'package:fit_trackr/Widgets/AddSets/SetsList.dart';
+import 'package:fit_trackr/Models/training_option.dart';
+import 'package:fit_trackr/Models/training_set.dart';
+import 'package:fit_trackr/Widgets/AddSets/reps_kg_input_view.dart';
+import 'package:fit_trackr/Widgets/AddSets/sets_list.dart';
 import 'package:flutter/material.dart';
-import 'package:fit_trackr/Helpers/DatabaseHelper.dart';
-import 'package:fit_trackr/Helpers/AlertHelper.dart';
+import 'package:fit_trackr/Helpers/database_helper.dart';
+import 'package:fit_trackr/Helpers/alert_helper.dart';
 
 class AddSetsPage extends StatefulWidget {
   final TrainingOption option;

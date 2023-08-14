@@ -1,4 +1,4 @@
-import 'TrainingOption.dart';
+import 'training_option.dart';
 
 class TrainingPart {
   final String name;

@@ -1,10 +1,10 @@
-import 'package:fit_trackr/Helpers/AlertHelper.dart';
-import 'package:fit_trackr/Helpers/DatabaseHelper.dart';
-import 'package:fit_trackr/Models/TrainingOption.dart';
-import 'package:fit_trackr/Widgets/DeleteButton.dart';
+import 'package:fit_trackr/Helpers/alert_helper.dart';
+import 'package:fit_trackr/Helpers/database_helper.dart';
+import 'package:fit_trackr/Models/training_option.dart';
+import 'package:fit_trackr/Widgets/delete_button.dart';
 import 'package:flutter/material.dart';
-import '../AddSets/AddSetsPage.dart';
-import 'package:fit_trackr/Widgets/Animation/ShakeAnimationWidget.dart';
+import '../AddSets/add_sets_page.dart';
+import 'package:fit_trackr/Widgets/Animation/shake_animation_widget.dart';
 
 class TodayTrainingOptionsList extends StatefulWidget {
   var trainingOptions = [];

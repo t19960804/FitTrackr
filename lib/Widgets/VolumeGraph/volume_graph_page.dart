@@ -1,6 +1,6 @@
-import 'package:fit_trackr/Models/TrainingOption.dart';
+import 'package:fit_trackr/Models/training_option.dart';
 import 'package:flutter/material.dart';
-import 'package:fit_trackr/Widgets/VolumeGraph/VolumeGraph.dart';
+import 'package:fit_trackr/Widgets/VolumeGraph/volume_graph.dart';
 
 class VolumeGraphPage extends StatelessWidget {
   final String navTitle;

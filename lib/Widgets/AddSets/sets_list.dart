@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:fit_trackr/Models/TrainingSet.dart';
-import 'package:fit_trackr/Widgets/DeleteButton.dart';
-import 'package:fit_trackr/Widgets/Animation/ShakeAnimationWidget.dart';
+import 'package:fit_trackr/Models/training_set.dart';
+import 'package:fit_trackr/Widgets/delete_button.dart';
+import 'package:fit_trackr/Widgets/Animation/shake_animation_widget.dart';
 
 class SetsList extends StatefulWidget {
   final bool isEditMode;

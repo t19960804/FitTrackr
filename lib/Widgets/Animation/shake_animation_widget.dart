@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fit_trackr/Helpers/ShakeAnimationHelper.dart';
+import 'package:fit_trackr/Helpers/shake_animation_helper.dart';
 
 class ShakeAnimationWidget extends StatefulWidget {
   final bool isShaking;

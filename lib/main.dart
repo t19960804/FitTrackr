@@ -1,9 +1,9 @@
-import 'package:fit_trackr/Models/TrainingOption.dart';
+import 'package:fit_trackr/Models/training_option.dart';
 import 'package:flutter/material.dart';
-import 'package:fit_trackr/Widgets/CalenderTab/Calender.dart';
-import 'package:fit_trackr/Widgets/CalenderTab/TodayTrainingOptionsList.dart';
-import 'package:fit_trackr/Widgets/TrainingsGrid.dart';
-import 'Helpers/DatabaseHelper.dart';
+import 'package:fit_trackr/Widgets/CalenderTab/calender.dart';
+import 'package:fit_trackr/Widgets/CalenderTab/today_training_options_list.dart';
+import 'package:fit_trackr/Widgets/trainings_grid.dart';
+import 'Helpers/database_helper.dart';
 
 enum MainTabType {
   calender,

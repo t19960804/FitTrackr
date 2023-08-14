@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import 'package:fit_trackr/Models/TrainingOption.dart';
+import 'package:fit_trackr/Models/training_option.dart';
 
 class VolumeGraph extends StatelessWidget {
   final _lineColor = Colors.black.withOpacity(0.5);

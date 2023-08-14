@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'IntputTextField.dart';
-import 'FinishButton.dart';
-import 'package:fit_trackr/Models/TrainingSet.dart';
+import 'intput_text_field.dart';
+import 'finish_button.dart';
+import 'package:fit_trackr/Models/training_set.dart';
 
 class RepsAndKgInputView extends StatefulWidget {
   final void Function(TrainingSet) trainingSetWasAdded;
