@@ -67,7 +67,7 @@ class TrainingOption {
         return "$volume";
       }
     } else {
-      return "";
+      return "0";
     }
   }
 
