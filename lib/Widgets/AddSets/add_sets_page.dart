@@ -8,24 +8,23 @@ import 'package:fit_trackr/Helpers/alert_helper.dart';
 
 class AddSetsPage extends StatefulWidget {
   final TrainingOption option;
-  final void Function() _setsWasUpdated;
-
-  List<TrainingSet> _trainingSets = [];
-
-  AddSetsPage(
-      {super.key,
-      required this.option,
-      required void Function() setsWasUpdated})
-      : _setsWasUpdated = setsWasUpdated {
-    _trainingSets = option.sets ?? [];
-  }
+  final void Function() setsWasUpdated;
+  const AddSetsPage(
+      {super.key, required this.option, required this.setsWasUpdated});
 
   @override
   State<AddSetsPage> createState() => _AddSetsPageState();
 }
 
 class _AddSetsPageState extends State<AddSetsPage> {
+  List<TrainingSet> _trainingSets = [];
   var _isEditMode = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _trainingSets = widget.option.sets ?? [];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +57,10 @@ class _AddSetsPageState extends State<AddSetsPage> {
                             child: RepsAndKgInputView(
                               trainingSetWasAdded: (set) async {
                                 setState(() {
-                                  widget._trainingSets.add(set);
+                                  _trainingSets.add(set);
                                 });
                                 updateTrainingOptionInDB();
-                                widget._setsWasUpdated();
+                                widget.setsWasUpdated();
                               },
                             ),
                           ),
@@ -87,14 +86,14 @@ class _AddSetsPageState extends State<AddSetsPage> {
           ]),
       body: SetsList(
         isEditMode: _isEditMode,
-        sets: widget._trainingSets,
+        sets: _trainingSets,
         deleteButtonTapped: (trainingSet) {
           AlertHelper.showAlert(context, deleteAction: () {
             setState(() {
-              widget._trainingSets.remove(trainingSet);
+              _trainingSets.remove(trainingSet);
             });
             updateTrainingOptionInDB();
-            widget._setsWasUpdated();
+            widget.setsWasUpdated();
             Navigator.of(context).pop();
           }, cancelAction: () {
             Navigator.of(context).pop();
@@ -105,7 +104,7 @@ class _AddSetsPageState extends State<AddSetsPage> {
   }
 
   void updateTrainingOptionInDB() {
-    widget.option.sets = widget._trainingSets;
+    widget.option.sets = _trainingSets;
     widget.option.volume = TrainingOption.calculateVolume(widget.option.sets!);
     DatabaseHelper.getSharedInstance().updateTrainingOption(widget.option);
   }
