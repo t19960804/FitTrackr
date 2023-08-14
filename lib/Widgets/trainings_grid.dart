@@ -42,11 +42,7 @@ class TrainingsGrid extends StatefulWidget {
   void Function(TrainingOption)? optionWasSelected;
 
   TrainingsGrid(
-      {super.key,
-      required MainTabType type,
-      required void Function(TrainingOption) optionWasSelected}) {
-    this.type = type;
-    this.optionWasSelected = optionWasSelected;
+      {super.key, required this.type, required this.optionWasSelected}) {
     _resetSelectStatus();
   }
 
@@ -67,12 +63,12 @@ class _TrainingsGridState extends State<TrainingsGrid> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
-        slivers: _HeaderAndCells(widget.trainingParts),
+        slivers: _headerAndCells(widget.trainingParts),
       ),
     );
   }
 
-  List<Widget> _HeaderAndCells(List<TrainingPart> trainingParts) {
+  List<Widget> _headerAndCells(List<TrainingPart> trainingParts) {
     List<Widget> widgets = [];
     for (int i = 0; i < trainingParts.length; i++) {
       final part = trainingParts[i];

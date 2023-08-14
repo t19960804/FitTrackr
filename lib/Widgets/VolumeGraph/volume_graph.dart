@@ -5,7 +5,7 @@ import 'package:fit_trackr/Models/training_option.dart';
 class VolumeGraph extends StatelessWidget {
   final _lineColor = Colors.black.withOpacity(0.5);
   List<TrainingOption> options;
-  Map<int, List<TrainingOption>> map_month_options = {};
+  Map<int, List<TrainingOption>> mapOfMonthToOptions = {};
 
   VolumeGraph({super.key, required this.options}) {
     fillUpMap();
@@ -17,10 +17,10 @@ class VolumeGraph extends StatelessWidget {
         var month = int.parse(option.dateTime!.substring(4, 6));
 
         // If the key (month) doesn't exist in the map, create an empty list for it
-        map_month_options[month] ??= [];
+        mapOfMonthToOptions[month] ??= [];
 
         // Add the TrainingOption to the list corresponding to the month
-        map_month_options[month]!.add(option);
+        mapOfMonthToOptions[month]!.add(option);
       }
     }
   }
@@ -192,7 +192,7 @@ class VolumeGraph extends StatelessWidget {
       if (i == 0) {
         spots.add(const FlSpot(0, 0));
       } else {
-        spots.add(FlSpot(i, getTotalVolume(map_month_options[i])));
+        spots.add(FlSpot(i, getTotalVolume(mapOfMonthToOptions[i])));
       }
     }
     return spots;

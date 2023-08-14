@@ -137,11 +137,11 @@ class _MainTabPageState extends State<MainTabPage> {
           ),
         ],
       ),
-      body: _TabContent(),
+      body: _tabContent(),
     );
   }
 
-  Widget _TabContent() {
+  Widget _tabContent() {
     switch (_bottomNavigationIndex) {
       case 0:
         return Center(
@@ -153,7 +153,8 @@ class _MainTabPageState extends State<MainTabPage> {
                   updateTrainingOptions(dateTime: _selectedDay);
                 },
               ),
-              TodayTrainingOptionsList(_trainingOptions, _isEditMode),
+              TodayTrainingOptionsList(
+                  trainingOptions: _trainingOptions, isEditMode: _isEditMode),
             ],
           ),
         );

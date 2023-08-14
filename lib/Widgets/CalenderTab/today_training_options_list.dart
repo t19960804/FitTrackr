@@ -7,15 +7,13 @@ import '../AddSets/add_sets_page.dart';
 import 'package:fit_trackr/Widgets/Animation/shake_animation_widget.dart';
 
 class TodayTrainingOptionsList extends StatefulWidget {
-  var trainingOptions = [];
+  final List<TrainingOption> trainingOptions;
+  final bool isEditMode;
   var selectStatus = [];
-  var isEditMode = false;
 
   TodayTrainingOptionsList(
-      List<TrainingOption> trainingOptions, bool isEditMode) {
-    this.trainingOptions = trainingOptions;
-    this.selectStatus = List.generate(trainingOptions.length, (index) => false);
-    this.isEditMode = isEditMode;
+      {super.key, required this.trainingOptions, required this.isEditMode}) {
+    selectStatus = List.generate(trainingOptions.length, (index) => false);
   }
 
   @override
