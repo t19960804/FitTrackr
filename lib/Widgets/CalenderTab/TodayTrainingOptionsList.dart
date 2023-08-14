@@ -89,21 +89,17 @@ class _TodayTrainingOptionsListState extends State<TodayTrainingOptionsList> {
                           Text(
                             option.name,
                             style: TextStyle(
-                              fontWeight: isSelected
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
                               color: isSelected ? Colors.black : Colors.grey,
                             ),
                           ),
                           const Spacer(),
                           Text(
-                            "${option.volume ?? 0}",
+                            TrainingOption.getFormattedVolumeString(option),
                             style: TextStyle(
-                              fontWeight: isSelected
-                                  ? FontWeight.bold
-                                  : FontWeight.normal,
-                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22,
                               color: isSelected ? Colors.black : Colors.grey,
                             ),
                           ),

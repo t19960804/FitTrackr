@@ -56,6 +56,21 @@ class TrainingOption {
     return volume;
   }
 
+  static String getFormattedVolumeString(TrainingOption option) {
+    final volume = option.volume;
+    if (volume != null) {
+      if (volume >= 1000) {
+        return "${volume / 1000}K";
+      } else if (volume >= 1000000) {
+        return "${volume / 1000000}M";
+      } else {
+        return "$volume";
+      }
+    } else {
+      return "";
+    }
+  }
+
   static String getFormattedDateTimeString(DateTime dateTime) {
     final yearString = "${dateTime.year}";
     final monthString =
