@@ -42,7 +42,8 @@ class TrainingsGrid extends StatefulWidget {
   void Function(TrainingOption)? optionWasSelected;
 
   TrainingsGrid(
-      {required MainTabType type,
+      {super.key,
+      required MainTabType type,
       required void Function(TrainingOption) optionWasSelected}) {
     this.type = type;
     this.optionWasSelected = optionWasSelected;

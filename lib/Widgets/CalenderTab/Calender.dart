@@ -4,7 +4,7 @@ import 'DayContainer.dart';
 
 class Calendar extends StatefulWidget {
   void Function(DateTime) onDaySelected;
-  Calendar({required this.onDaySelected});
+  Calendar({super.key, required this.onDaySelected});
 
   @override
   State<Calendar> createState() => _CalendarState();

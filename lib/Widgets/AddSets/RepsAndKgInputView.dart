@@ -5,7 +5,7 @@ import 'package:fit_trackr/Models/TrainingSet.dart';
 
 class RepsAndKgInputView extends StatefulWidget {
   final void Function(TrainingSet) trainingSetWasAdded;
-  RepsAndKgInputView({super.key, required this.trainingSetWasAdded});
+  const RepsAndKgInputView({super.key, required this.trainingSetWasAdded});
 
   @override
   State<RepsAndKgInputView> createState() => _RepsAndKgInputViewState();
