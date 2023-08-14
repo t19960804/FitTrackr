@@ -28,14 +28,14 @@ class MyApp extends StatelessWidget {
             primary: Color(0xFFFF9800), secondary: Color(0xFFFFB74D)),
         useMaterial3: true,
       ),
-      home: MainTabPage(navTitle: 'FitTrackr'),
+      home: const MainTabPage(navTitle: 'FitTrackr'),
     );
   }
 }
 
 class MainTabPage extends StatefulWidget {
   final String navTitle;
-  MainTabPage({required this.navTitle});
+  const MainTabPage({super.key, required this.navTitle});
 
   @override
   State<MainTabPage> createState() => _MainTabPageState();

@@ -50,16 +50,16 @@ class VolumeGraphPage extends StatelessWidget {
                       children: [
                         Text(
                           dateTime,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 24,
                             color: Colors.grey,
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Text(
                           volume,
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 24,
                             color: Colors.grey,

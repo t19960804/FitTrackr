@@ -8,10 +8,7 @@ class DatabaseHelper {
   DatabaseHelper._();
 
   factory DatabaseHelper.getSharedInstance() {
-    if (_instance == null) {
-      _instance = DatabaseHelper._();
-    }
-    return _instance!;
+    return _instance ??= DatabaseHelper._();
   }
 
   Future<Database> _database() async {

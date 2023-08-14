@@ -12,7 +12,10 @@ class AddSetsPage extends StatefulWidget {
 
   List<TrainingSet> _trainingSets = [];
 
-  AddSetsPage({required this.option, required void Function() setsWasUpdated})
+  AddSetsPage(
+      {super.key,
+      required this.option,
+      required void Function() setsWasUpdated})
       : _setsWasUpdated = setsWasUpdated {
     _trainingSets = option.sets ?? [];
   }

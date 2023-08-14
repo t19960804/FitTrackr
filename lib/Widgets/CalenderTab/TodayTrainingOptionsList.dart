@@ -44,9 +44,7 @@ class _TodayTrainingOptionsListState extends State<TodayTrainingOptionsList> {
                   return AddSetsPage(
                     option: option,
                     setsWasUpdated: () {
-                      setState(() {
-                        print("Sets update");
-                      });
+                      setState(() {});
                     },
                   );
                 }));
