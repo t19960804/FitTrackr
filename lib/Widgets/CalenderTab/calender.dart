@@ -3,8 +3,8 @@ import 'package:table_calendar/table_calendar.dart';
 import 'day_container.dart';
 
 class Calendar extends StatefulWidget {
-  void Function(DateTime) onDaySelected;
-  Calendar({super.key, required this.onDaySelected});
+  final Function(DateTime) onDaySelected;
+  const Calendar({super.key, required this.onDaySelected});
 
   @override
   State<Calendar> createState() => _CalendarState();

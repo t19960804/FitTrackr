@@ -9,12 +9,8 @@ import 'package:fit_trackr/Widgets/Animation/shake_animation_widget.dart';
 class TodayTrainingOptionsList extends StatefulWidget {
   final List<TrainingOption> trainingOptions;
   final bool isEditMode;
-  var selectStatus = [];
-
-  TodayTrainingOptionsList(
-      {super.key, required this.trainingOptions, required this.isEditMode}) {
-    selectStatus = List.generate(trainingOptions.length, (index) => false);
-  }
+  const TodayTrainingOptionsList(
+      {super.key, required this.trainingOptions, required this.isEditMode});
 
   @override
   State<TodayTrainingOptionsList> createState() =>
@@ -22,6 +18,25 @@ class TodayTrainingOptionsList extends StatefulWidget {
 }
 
 class _TodayTrainingOptionsListState extends State<TodayTrainingOptionsList> {
+  var _selectStatus = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _resetSelectStatus();
+  }
+
+  @override
+  void didUpdateWidget(covariant TodayTrainingOptionsList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    _resetSelectStatus();
+  }
+
+  void _resetSelectStatus() {
+    _selectStatus =
+        List.generate(widget.trainingOptions.length, (index) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -29,14 +44,13 @@ class _TodayTrainingOptionsListState extends State<TodayTrainingOptionsList> {
         // 在Column裡面使用ListView這種具有無限延展性的Widget，需要用Expanded包住
         itemBuilder: (context, index) {
           final option = widget.trainingOptions[index];
-          final isSelected = widget.selectStatus[index];
+          final isSelected = _selectStatus[index];
 
           return TextButton(
             onPressed: () {
               setState(() {
-                widget.selectStatus
-                    .fillRange(0, widget.selectStatus.length, false);
-                widget.selectStatus[index] = true;
+                _selectStatus.fillRange(0, _selectStatus.length, false);
+                _selectStatus[index] = true;
 
                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                   return AddSetsPage(

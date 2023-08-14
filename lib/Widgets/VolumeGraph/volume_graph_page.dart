@@ -4,8 +4,9 @@ import 'package:fit_trackr/Widgets/VolumeGraph/volume_graph.dart';
 
 class VolumeGraphPage extends StatelessWidget {
   final String navTitle;
-  List<TrainingOption> options;
-  VolumeGraphPage({super.key, required this.navTitle, required this.options});
+  final List<TrainingOption> options;
+  const VolumeGraphPage(
+      {super.key, required this.navTitle, required this.options});
 
   @override
   Widget build(BuildContext context) {
