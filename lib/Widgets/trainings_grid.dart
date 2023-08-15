@@ -6,7 +6,18 @@ import 'package:fit_trackr/Widgets/VolumeGraph/volume_graph_page.dart';
 import 'package:fit_trackr/Helpers/database_helper.dart';
 
 class TrainingsGrid extends StatefulWidget {
-  var trainingParts = [
+  final MainTabType type;
+  final void Function(TrainingOption)? optionWasSelected;
+
+  const TrainingsGrid(
+      {super.key, required this.type, required this.optionWasSelected});
+
+  @override
+  State<TrainingsGrid> createState() => _TrainingsGridState();
+}
+
+class _TrainingsGridState extends State<TrainingsGrid> {
+  final _trainingParts = [
     TrainingPart(
       "Chest",
       [
@@ -37,33 +48,27 @@ class TrainingsGrid extends StatefulWidget {
       ],
     ),
   ];
-  var selectStatus = [];
-  var type = MainTabType.calender;
-  void Function(TrainingOption)? optionWasSelected;
+  var _selectStatus = [];
 
-  TrainingsGrid(
-      {super.key, required this.type, required this.optionWasSelected}) {
+  @override
+  void initState() {
+    super.initState();
     _resetSelectStatus();
   }
 
   void _resetSelectStatus() {
-    selectStatus = List.generate(
-      trainingParts.length,
+    _selectStatus = List.generate(
+      _trainingParts.length,
       (index) =>
-          List.generate(trainingParts[index].options.length, (i) => false),
+          List.generate(_trainingParts[index].options.length, (i) => false),
     );
   }
 
   @override
-  State<TrainingsGrid> createState() => _TrainingsGridState();
-}
-
-class _TrainingsGridState extends State<TrainingsGrid> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: CustomScrollView(
-        slivers: _headerAndCells(widget.trainingParts),
+        slivers: _headerAndCells(_trainingParts),
       ),
     );
   }
@@ -101,12 +106,12 @@ class _TrainingsGridState extends State<TrainingsGrid> {
         ),
         delegate: SliverChildBuilderDelegate(
           (BuildContext context, int j) {
-            final isSelected = widget.selectStatus[i][j];
+            final isSelected = _selectStatus[i][j];
             return TextButton(
               onPressed: () async {
                 setState(() {
-                  widget._resetSelectStatus();
-                  widget.selectStatus[i][j] = true;
+                  _resetSelectStatus();
+                  _selectStatus[i][j] = true;
                 });
                 widget.optionWasSelected!(options[j]);
                 if (widget.type == MainTabType.calender) {
