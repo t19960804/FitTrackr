@@ -4,8 +4,8 @@ import 'package:fit_trackr/Models/training_option.dart';
 
 class VolumeGraph extends StatelessWidget {
   final _lineColor = Colors.black.withOpacity(0.5);
-  List<TrainingOption> options;
-  Map<int, List<TrainingOption>> mapOfMonthToOptions = {};
+  final List<TrainingOption> options;
+  final Map<int, List<TrainingOption>> mapOfMonthToOptions = {};
 
   VolumeGraph({super.key, required this.options}) {
     fillUpMap();
