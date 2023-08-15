@@ -1,16 +1,9 @@
 # fit_trackr
 
-A new Flutter project.
+This app allows users to schedule their daily fitness routines and presents their monthly training progress through visual charts, let them to understand the extent of their growth.
 
-## Getting Started
+## Technology Stack 
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. Progamming Language - Dart(Flutter SDK)
+2. Data Base - SQLite
+3. Third Party - Chart, Calendar
