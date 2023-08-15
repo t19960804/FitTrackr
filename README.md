@@ -9,5 +9,5 @@ This app allows users to schedule their daily fitness routines and presents thei
 3. Third Party - Chart, Calendar
 
 ## Demo
-![Demo](https://github.com/t19960804/FitTrackr/blob/main/videos/test.gif)
+![Demo](https://github.com/t19960804/FitTrackr/blob/main/videos/Demo_Resize.gif)
 
