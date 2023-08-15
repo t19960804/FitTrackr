@@ -9,5 +9,5 @@ This app allows users to schedule their daily fitness routines and presents thei
 3. Third Party - Chart, Calendar
 
 ## Demo
-![Demo](https://github.com/t19960804/FitTrackr/blob/main/videos/Simulator%20Screen%20Recording%20-%20iPhone%2014%20-%202023-08-15%20at%2016.10.40.mp4)
+![Demo](https://github.com/t19960804/FitTrackr/blob/main/videos/test.gif)
 
